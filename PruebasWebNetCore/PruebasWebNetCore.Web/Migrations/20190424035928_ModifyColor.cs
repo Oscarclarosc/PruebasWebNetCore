@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PruebasWebNetCore.Web.Migrations
 {
-    public partial class initialDB : Migration
+    public partial class ModifyColor : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,8 +13,8 @@ namespace PruebasWebNetCore.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(nullable: true),
-                    Codigo = table.Column<string>(nullable: true),
+                    Nombre = table.Column<string>(maxLength: 30, nullable: false),
+                    Codigo = table.Column<string>(maxLength: 50, nullable: false),
                     ImagenUrl = table.Column<string>(nullable: true),
                     Estado = table.Column<bool>(nullable: false)
                 },

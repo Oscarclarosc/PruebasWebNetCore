@@ -9,8 +9,8 @@ using PruebasWebNetCore.Web.Data;
 namespace PruebasWebNetCore.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190423213628_initialDB")]
-    partial class initialDB
+    [Migration("20190424035928_ModifyColor")]
+    partial class ModifyColor
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,13 +26,17 @@ namespace PruebasWebNetCore.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Codigo");
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<bool>("Estado");
 
                     b.Property<string>("ImagenUrl");
 
-                    b.Property<string>("Nombre");
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 

@@ -10,11 +10,9 @@ namespace PruebasWebNetCore.Web.Data
     {
         public DbSet<Color> Colores { get; set; } // se recomiendan llamar las propiedades en plural
 
-
         //constructor
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-
         }
 
     }

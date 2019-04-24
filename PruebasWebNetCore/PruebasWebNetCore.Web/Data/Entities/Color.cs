@@ -7,9 +7,13 @@ namespace PruebasWebNetCore.Web.Data.Entities
     {
         public int Id { get; set; }
 
+        [MaxLength(30)] 
+        [Required(ErrorMessage = "Se necesita el nombre del color")]
         [Display(Name = "Color")]
         public string Nombre { get; set; }
 
+        [MaxLength(50)]
+        [Required(ErrorMessage = "Se necesita el codigo del color")]
         [Display(Name ="Codigo")]
         public string Codigo { get; set; }
 
