@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using PruebasWebNetCore.Web.Data;
+﻿
 
 namespace PruebasWebNetCore.Web
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using PruebasWebNetCore.Web.Data;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -26,6 +28,10 @@ namespace PruebasWebNetCore.Web
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
 
             });
+
+            
+            services.AddTransient<SeedDb>();
+
 
 
             services.Configure<CookiePolicyOptions>(options =>

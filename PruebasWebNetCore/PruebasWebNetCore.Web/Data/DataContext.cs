@@ -1,5 +1,6 @@
 ﻿
 
+//en esta clase es donde se implementan las conexiones entre las tablas y es donde crea los dbset el entity F
 namespace PruebasWebNetCore.Web.Data
 {
 
@@ -12,7 +13,7 @@ namespace PruebasWebNetCore.Web.Data
 
         //constructor
         public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {
+        { 
         }
 
     }
