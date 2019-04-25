@@ -1,11 +1,9 @@
 ﻿
-
-//TODO: esta clase debe estar ingresada por defecto con los datos, lo unico que deberia porder cambiarse es el estado 
 namespace PruebasWebNetCore.Web.Data.Entities
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Color : IEntity
+    public class Color
     {
         public int Id { get; set; }
 

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\API\" />
+    <Folder Include="Data\Repositories\" />
   </ItemGroup>
 
 </Project>

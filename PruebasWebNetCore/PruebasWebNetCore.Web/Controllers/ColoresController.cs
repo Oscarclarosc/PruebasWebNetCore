@@ -1,26 +1,28 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using PruebasWebNetCore.Web.Data;
+using PruebasWebNetCore.Web.Data.Entities;
 
 namespace PruebasWebNetCore.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Data.Entities;
-    using Data.Repositories;
-    using System.Threading.Tasks;
-
     public class ColoresController : Controller
     {
-        private readonly IColoresRepository coloresRepository;
+        private readonly DataContext _context;
 
-        public ColoresController(IColoresRepository coloresRepository)
+        public ColoresController(DataContext context)
         {
-            this.coloresRepository = coloresRepository;
+            _context = context;
         }
 
         // GET: Colores
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(this.coloresRepository.GetAll());
+            return View(await _context.Colores.ToListAsync());
         }
 
         // GET: Colores/Details/5
@@ -31,7 +33,8 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var color = await this.coloresRepository.GetByIdAsync(id.Value);
+            var color = await _context.Colores
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (color == null)
             {
                 return NotFound();
@@ -39,7 +42,6 @@ namespace PruebasWebNetCore.Web.Controllers
 
             return View(color);
         }
-
 
         // GET: Colores/Create
         public IActionResult Create()
@@ -50,11 +52,12 @@ namespace PruebasWebNetCore.Web.Controllers
         // POST: Colores/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Color color)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Codigo,ImagenUrl,Estado")] Color color)
         {
             if (ModelState.IsValid)
             {
-                await this.coloresRepository.CreateAsync(color);
+                _context.Add(color);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(color);
@@ -68,7 +71,7 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var color = await this.coloresRepository.GetByIdAsync(id.Value);
+            var color = await _context.Colores.FindAsync(id);
             if (color == null)
             {
                 return NotFound();
@@ -79,18 +82,23 @@ namespace PruebasWebNetCore.Web.Controllers
         // POST: Colores/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Color color)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Codigo,ImagenUrl,Estado")] Color color)
         {
+            if (id != color.Id)
+            {
+                return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await this.coloresRepository.UpdateAsync(color);
+                    _context.Update(color);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await this.coloresRepository.ExistAsync(color.Id))
+                    if (!ColorExists(color.Id))
                     {
                         return NotFound();
                     }
@@ -112,7 +120,8 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var color = await this.coloresRepository.GetByIdAsync(id.Value);
+            var color = await _context.Colores
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (color == null)
             {
                 return NotFound();
@@ -126,10 +135,15 @@ namespace PruebasWebNetCore.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var color = await this.coloresRepository.GetByIdAsync(id);
-            await this.coloresRepository.DeleteAsync(color);
+            var color = await _context.Colores.FindAsync(id);
+            _context.Colores.Remove(color);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        private bool ColorExists(int id)
+        {
+            return _context.Colores.Any(e => e.Id == id);
+        }
     }
 }

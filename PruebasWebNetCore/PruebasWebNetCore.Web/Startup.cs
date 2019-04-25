@@ -5,15 +5,11 @@ namespace PruebasWebNetCore.Web
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Data;
-    using Data.Entities;
-    using Data.Repositories;
-    using Helpers;
+    using PruebasWebNetCore.Web.Data;
 
     public class Startup
     {
@@ -27,33 +23,15 @@ namespace PruebasWebNetCore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //propiedades de User
-            services.AddIdentity<User, IdentityRole>(cfg =>
-           {
-               cfg.User.RequireUniqueEmail = true;
-               cfg.Password.RequireDigit = false;
-               cfg.Password.RequiredUniqueChars = 0;
-               cfg.Password.RequireLowercase = false;
-               cfg.Password.RequireNonAlphanumeric = false;
-               cfg.Password.RequireUppercase = false;
-               cfg.Password.RequiredLength = 6;
-           }).AddEntityFrameworkStores<DataContext>();
-
-            services.AddDbContext<DataContext>(cfg =>
-            {
+            services.AddDbContext<DataContext>(cfg => { 
 
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
 
             });
 
-            //para cargar datos predefinidos
+            
             services.AddTransient<SeedDb>();
 
-            //repositorios para los modelos
-            services.AddScoped<IColoresRepository, ColoresRepository>();
-
-            //Para los usuarios
-            services.AddScoped<IUserHelper, UserHelper>();
 
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -84,7 +62,6 @@ namespace PruebasWebNetCore.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
