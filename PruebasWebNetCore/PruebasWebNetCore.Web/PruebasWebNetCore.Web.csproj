@@ -14,7 +14,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Controllers\API\" />
+    <Folder Include="wwwroot\images\Colores\" />
   </ItemGroup>
 
 </Project>
