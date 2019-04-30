@@ -3,7 +3,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Color
+    public class Color : IEntity
     {
         public int Id { get; set; }
 

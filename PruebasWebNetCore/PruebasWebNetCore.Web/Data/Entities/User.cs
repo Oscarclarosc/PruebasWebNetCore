@@ -1,5 +1,6 @@
 ﻿
 //TODO: aqui se agregarian los atributos de persona
+//TODO: falta agregar la clase entity
 namespace PruebasWebNetCore.Web.Data.Entities
 {
     using Microsoft.AspNetCore.Identity;

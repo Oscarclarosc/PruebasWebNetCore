@@ -10,8 +10,10 @@ namespace PruebasWebNetCore.Web
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using PruebasWebNetCore.Web.Data;
-    using PruebasWebNetCore.Web.Data.Entities;
+    using Data;
+    using Data.Entities;
+    using Helpers;
+    using PruebasWebNetCore.Web.Data.Repositories;
 
     public class Startup
     {
@@ -48,8 +50,10 @@ namespace PruebasWebNetCore.Web
 
             //para los datos cargados por defecto
             services.AddTransient<SeedDb>();
-
-
+            //para los helpers
+            services.AddScoped<IUserHelper, UserHelper>();
+            //Para repositorios
+            services.AddScoped<IColorRepository, ColorRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

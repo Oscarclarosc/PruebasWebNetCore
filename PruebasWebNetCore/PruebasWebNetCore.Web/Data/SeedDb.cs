@@ -3,7 +3,8 @@
 namespace PruebasWebNetCore.Web.Data
 {
     using Microsoft.AspNetCore.Identity;
-    using PruebasWebNetCore.Web.Data.Entities;
+    using Data.Entities;
+    using Helpers;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
@@ -11,21 +12,19 @@ namespace PruebasWebNetCore.Web.Data
     public class SeedDb
     {
         private readonly DataContext context;
-        private readonly UserManager<User> userManager;
+        private readonly IUserHelper userHelper;
 
-        //private Random random;
-
-        public SeedDb(DataContext context, UserManager<User> userManager)
+        public SeedDb(DataContext context, IUserHelper userHelper )
         {
             this.context = context;
-            this.userManager = userManager;
+            this.userHelper = userHelper;
         }
 
         public async Task SeedAsync()
         {
             await this.context.Database.EnsureCreatedAsync();
 
-            var user = await this.userManager.FindByEmailAsync("oscarclarosc@gmail.com");
+            var user = await this.userHelper.GetUserByEmailAsync("oscarclarosc@gmail.com");
 
             //creo que esto estaba mal
             if (user == null)
@@ -41,7 +40,7 @@ namespace PruebasWebNetCore.Web.Data
                         PhoneNumber = "7651519"
                     };
                 }
-                var result = await this.userManager.CreateAsync(user, "123456");
+                var result = await this.userHelper.AddUSerAsync(user, "123456");
                 if (result != IdentityResult.Success)
                 {
                     throw new InvalidOperationException("No se pudo crear el usuario en el Seeder");
