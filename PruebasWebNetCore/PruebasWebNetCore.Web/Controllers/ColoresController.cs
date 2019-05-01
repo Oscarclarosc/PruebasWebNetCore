@@ -7,6 +7,9 @@ namespace PruebasWebNetCore.Web.Controllers
     using Data.Entities;
     using Data.Repositories;
     using System.Threading.Tasks;
+    using PruebasWebNetCore.Web.Models;
+    using System.IO;
+    using System;
 
     public class ColoresController : Controller
     {
@@ -51,14 +54,48 @@ namespace PruebasWebNetCore.Web.Controllers
         // POST: Colores/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Color color)
+        public async Task<IActionResult> Create(ColorViewModel view)
         {
             if (ModelState.IsValid)
             {
+                //para la imagen
+                var path = string.Empty;
+
+                if (view.ImagenFile != null && view.ImagenFile.Length > 0)
+                {
+                    path = Path.Combine(Directory.GetCurrentDirectory(), 
+                        "wwwroot\\images\\Colores", 
+                        view.ImagenFile.FileName);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await view.ImagenFile.CopyToAsync(stream);
+                    }
+
+                    path = $"~/images/Colores/{view.ImagenFile.FileName}";
+                }
+
+
+                var color = this.ToColor(view, path);
+
                 await this.colorRepository.CreateAsync(color);
                 return RedirectToAction(nameof(Index));
             }
-            return View(color);
+            return View(view);
+        }
+
+
+        //buscar otra forma de hacer esto
+        private Color ToColor(ColorViewModel view, string path)
+        {
+            return new Color
+            {
+                Id=view.Id,
+                ImagenUrl = path,
+                Nombre = view.Nombre,
+                Codigo = view.Codigo,
+                Estado = view.Estado
+            };
         }
 
         // GET: Colores/Edit/5
@@ -74,23 +111,56 @@ namespace PruebasWebNetCore.Web.Controllers
             {
                 return NotFound();
             }
-            return View(color);
+
+            var view = this.ToColorViewModel(color);
+
+            return View(view);
+        }
+
+        private ColorViewModel ToColorViewModel(Color color)
+        {
+            return new ColorViewModel
+            {
+                Id = color.Id,
+                ImagenUrl = color.ImagenUrl,
+                Nombre = color.Nombre,
+                Codigo = color.Codigo,
+                Estado = color.Estado
+            };
         }
 
         // POST: Colores/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Color color)
+        public async Task<IActionResult> Edit(ColorViewModel view)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var path = view.ImagenUrl;
+
+                    if (view.ImagenFile != null && view.ImagenFile.Length > 0)
+                    {
+                        path = Path.Combine(Directory.GetCurrentDirectory(),
+                            "wwwroot\\images\\Colores",
+                            view.ImagenFile.FileName);
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await view.ImagenFile.CopyToAsync(stream);
+                        }
+
+                        path = $"~/images/Colores/{view.ImagenFile.FileName}";
+                    }
+
+
+                    var color = this.ToColor(view, path);
                     await this.colorRepository.UpdateAsync(color);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await this.colorRepository.ExistAsync(color.Id))
+                    if (!await this.colorRepository.ExistAsync(view.Id))
                     {
                         return NotFound();
                     }
@@ -101,7 +171,7 @@ namespace PruebasWebNetCore.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(color);
+            return View(view);
         }
 
         // GET: Colores/Delete/5

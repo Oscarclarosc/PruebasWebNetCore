@@ -37,7 +37,11 @@
                 @Html.DisplayFor(modelItem => item.Codigo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImagenUrl)
+                @if (!string.IsNullOrEmpty(item.ImagenUrl))
+                {
+                    <img src="@Url.Content(item.ImagenUrl)" alt="Image" style="width:150px;height:25px;max-width: 100%; " />
+                }
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
