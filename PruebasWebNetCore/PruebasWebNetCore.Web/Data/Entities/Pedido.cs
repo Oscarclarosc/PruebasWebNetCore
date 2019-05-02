@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace PruebasWebNetCore.Web.Data.Entities
 {
-    public class Pedido
+    public class Pedido : IEntity
     {
 
-        public int PedidoId { get; set; }
+        public int Id { get; set; }
 
         public string EstadoPedido { get; set; }
 

@@ -1,6 +1,8 @@
 ﻿
 namespace PruebasWebNetCore.Web.Data.Entities
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class Color : IEntity
@@ -22,5 +24,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
 
         [Display(Name = "Esta Disponible?")]
         public bool Estado { get; set; }
+
+        public ICollection<ImpresionPedido> ImpresionesPedido { get; set; }
     }
 }
