@@ -10,7 +10,9 @@ namespace PruebasWebNetCore.Web.Controllers
     using PruebasWebNetCore.Web.Models;
     using System.IO;
     using System;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize]
     public class ColoresController : Controller
     {
         //private readonly DataContext _context;

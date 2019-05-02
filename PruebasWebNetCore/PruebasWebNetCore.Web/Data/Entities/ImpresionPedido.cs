@@ -4,6 +4,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
 {
     using System.ComponentModel.DataAnnotations;
 
+    //TODO: falta hacer la implementacion en las vista de seleccionar un color
     public class ImpresionPedido : IEntity
     {
         public int Id { get; set; }
