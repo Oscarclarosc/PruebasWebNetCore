@@ -23,6 +23,9 @@ namespace PruebasWebNetCore.Web.Data
         public async Task SeedAsync()
         {
             await this.context.Database.EnsureCreatedAsync();
+            
+            await this.userHelper.CheckRoleAsync("Admin");
+            await this.userHelper.CheckRoleAsync("Customer");
 
             var user = await this.userHelper.GetUserByEmailAsync("oscarclarosc@gmail.com");
 
@@ -45,7 +48,17 @@ namespace PruebasWebNetCore.Web.Data
                 {
                     throw new InvalidOperationException("No se pudo crear el usuario en el Seeder");
                 }
+
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
             }
+
+            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
+
+            if (!isInRole)
+            {
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+            }
+
 
             if (!this.context.Colores.Any())
             {

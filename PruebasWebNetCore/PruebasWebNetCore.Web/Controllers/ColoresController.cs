@@ -12,7 +12,6 @@ namespace PruebasWebNetCore.Web.Controllers
     using System;
     using Microsoft.AspNetCore.Authorization;
 
-    [Authorize]
     public class ColoresController : Controller
     {
         //private readonly DataContext _context;
@@ -30,6 +29,7 @@ namespace PruebasWebNetCore.Web.Controllers
             return View(this.colorRepository.GetAll());
         }
 
+        //TODO:Falta agreagar mostrar la imagen en la vista de detalles
         // GET: Colores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -48,6 +48,7 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
         // GET: Colores/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
