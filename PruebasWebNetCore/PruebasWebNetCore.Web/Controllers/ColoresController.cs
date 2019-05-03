@@ -11,6 +11,7 @@ namespace PruebasWebNetCore.Web.Controllers
     using System.IO;
     using System;
     using Microsoft.AspNetCore.Authorization;
+    using PruebasWebNetCore.Web.Helpers;
 
     public class ColoresController : Controller
     {
@@ -35,13 +36,13 @@ namespace PruebasWebNetCore.Web.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ColorNotFound");
             }
 
             var color = await this.colorRepository.GetByIdAsync(id.Value);
             if (color == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ColorNotFound");
             }
 
             return View(color);
@@ -202,6 +203,11 @@ namespace PruebasWebNetCore.Web.Controllers
             var color = await this.colorRepository.GetByIdAsync(id);
             await this.colorRepository.DeleteAsync(color);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ColorNotFound()
+        {
+            return this.View();
         }
 
     }

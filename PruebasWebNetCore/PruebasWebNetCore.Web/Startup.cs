@@ -63,6 +63,12 @@ namespace PruebasWebNetCore.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //para mostrar la pagina de no autorizado cuando no se tenga login o cuando no se tenga permiso de hacer algo
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/NotAuthorized";
+                options.AccessDeniedPath = "/Account/NotAuthorized";
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -81,6 +87,7 @@ namespace PruebasWebNetCore.Web
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
