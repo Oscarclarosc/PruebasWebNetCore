@@ -4,9 +4,9 @@ namespace PruebasWebNetCore.Web.Controllers
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using PruebasWebNetCore.Web.Data.Entities;
-    using PruebasWebNetCore.Web.Helpers;
-    using PruebasWebNetCore.Web.Models;
+    using Data.Entities;
+    using Helpers;
+    using Models;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -28,7 +28,6 @@ namespace PruebasWebNetCore.Web.Controllers
             }
             return this.View();
         }
-
         //POST
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -58,11 +57,12 @@ namespace PruebasWebNetCore.Web.Controllers
             return this.RedirectToAction("Index", "Home");
         }
 
+        //GET
         public IActionResult Register()
         {
             return this.View();
         }
-
+        //POST
         [HttpPost]
         public async Task<IActionResult> Register(RegisterNewUserViewModel model)
         {
@@ -111,5 +111,88 @@ namespace PruebasWebNetCore.Web.Controllers
 
             return this.View(model);
         }
+
+        //GET
+        public async Task<IActionResult> ChangeUser()
+        {
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+            var model = new ChangeUserViewModel();
+            if (user != null)
+            {
+                model.Nombre = user.Nombre;
+                model.ApellidoPaterno = user.ApellidoPaterno;
+                model.ApellidoMaterno = user.ApellidoMaterno;
+            }
+
+            return this.View(model);
+        }
+        //POST
+        [HttpPost]
+        public async Task<IActionResult> ChangeUser(ChangeUserViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+                if (user != null)
+                {
+                    user.Nombre = model.Nombre;
+                    user.ApellidoPaterno = model.ApellidoPaterno;
+                    user.ApellidoMaterno = model.ApellidoMaterno;
+                    var respose = await this.userHelper.UpdateUserAsync(user);
+                    if (respose.Succeeded)
+                    {
+                        this.ViewBag.UserMessage = "User updated!";
+                    }
+                    else
+                    {
+                        this.ModelState.AddModelError(string.Empty, respose.Errors.FirstOrDefault().Description);
+                    }
+                }
+                else
+                {
+                    this.ModelState.AddModelError(string.Empty, "User no found.");
+                }
+            }
+
+            return this.View(model);
+        }
+
+        //GET
+        public IActionResult ChangePassword()
+        {
+            return this.View();
+        }
+        //POST
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+                if (user != null)
+                {
+                    var result = await this.userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return this.RedirectToAction("ChangeUser");
+                    }
+                    else
+                    {
+                        this.ModelState.AddModelError(string.Empty, result.Errors.FirstOrDefault().Description);
+                    }
+                }
+                else
+                {
+                    this.ModelState.AddModelError(string.Empty, "User no found.");
+                }
+            }
+
+            return this.View(model);
+        }
+
+
+
+
+
     }
 }

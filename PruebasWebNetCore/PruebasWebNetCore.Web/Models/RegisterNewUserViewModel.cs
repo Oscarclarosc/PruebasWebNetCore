@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace PruebasWebNetCore.Web.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class RegisterNewUserViewModel
     {
         [Required]
-        [Display(Name ="Nombre")]
+        [Display(Name = "Nombre")]
         public string Nombre { get; set; }
 
         [Required]

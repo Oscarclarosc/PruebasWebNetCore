@@ -1,0 +1,45 @@
+﻿@model PruebasWebNetCore.Web.Models.ChangeUserViewModel
+@{
+    ViewData["Title"] = "ChangeUser";
+}
+
+<h1>ChangeUser</h1>
+
+<h2>Update User</h2>
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <div class="form-group">
+                <label asp-for="Nombre"> Nombres</label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-warning"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ApellidoPaterno"> Apellido Paterno</label>
+                <input asp-for="ApellidoPaterno" class="form-control" />
+                <span asp-validation-for="ApellidoPaterno" class="text-warning"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ApellidoMaterno"> Apellido Materno</label>
+                <input asp-for="ApellidoMaterno" class="form-control" />
+                <span asp-validation-for="ApellidoMaterno" class="text-warning"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a asp-action="ChangePassword" class="btn btn-success">Change Password</a>
+            </div>
+
+            <div class="text-success">@ViewBag.UserMessage</div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
