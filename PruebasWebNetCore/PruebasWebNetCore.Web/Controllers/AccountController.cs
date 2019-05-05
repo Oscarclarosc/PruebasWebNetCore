@@ -87,6 +87,13 @@ namespace PruebasWebNetCore.Web.Controllers
                         return this.View(model);
                     }
 
+                    await this.userHelper.AddUserToRoleAsync(user, model.Cargo);
+                    var isInRole = await this.userHelper.IsUserInRoleAsync(user, model.Cargo);
+
+                    if (!isInRole)
+                    {
+                        await this.userHelper.AddUserToRoleAsync(user, model.Cargo);
+                    }
 
                     var loginViewModel = new LoginViewModel
                     {
@@ -96,6 +103,7 @@ namespace PruebasWebNetCore.Web.Controllers
                     };
 
                     var result2 = await this.userHelper.LoginAsync(loginViewModel);
+
 
                     if (result2.Succeeded)
                     {

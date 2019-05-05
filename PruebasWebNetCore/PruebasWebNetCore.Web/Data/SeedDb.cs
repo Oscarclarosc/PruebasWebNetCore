@@ -24,8 +24,15 @@ namespace PruebasWebNetCore.Web.Data
         {
             await this.context.Database.EnsureCreatedAsync();
             
+            //Aqui se agregan todos los roles que voy a tener en el programa
+            //CheckRoleAsync revisa si el rol existe, si no es asi lo agrega a la tabla de roles
             await this.userHelper.CheckRoleAsync("Admin");
-            await this.userHelper.CheckRoleAsync("Customer");
+            await this.userHelper.CheckRoleAsync("Extrusor");
+            await this.userHelper.CheckRoleAsync("Impresor");
+            await this.userHelper.CheckRoleAsync("Cortador");
+            await this.userHelper.CheckRoleAsync("Empaquetador");
+            await this.userHelper.CheckRoleAsync("Jefe de Produccion");
+            await this.userHelper.CheckRoleAsync("Reciclador");
 
             var user = await this.userHelper.GetUserByEmailAsync("oscarclarosc@gmail.com");
 

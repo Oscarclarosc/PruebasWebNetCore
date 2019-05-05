@@ -13,6 +13,7 @@ namespace PruebasWebNetCore.Web.Controllers
     using Microsoft.AspNetCore.Authorization;
     using PruebasWebNetCore.Web.Helpers;
 
+    [Authorize]
     public class ColoresController : Controller
     {
         //private readonly DataContext _context;
@@ -49,7 +50,6 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
         // GET: Colores/Create
-        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();

@@ -31,5 +31,9 @@ namespace PruebasWebNetCore.Web.Models
         [Display(Name = "Confirmar Contraseña")]
         [Compare("Password")]
         public string Confirm { get; set; }
+
+        [Required]
+        public string Cargo { get; set; }
+
     }
 }

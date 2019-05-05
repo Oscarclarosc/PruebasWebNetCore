@@ -13,7 +13,7 @@ namespace PruebasWebNetCore.Web
     using Data;
     using Data.Entities;
     using Helpers;
-    using PruebasWebNetCore.Web.Data.Repositories;
+    using Data.Repositories;
 
     public class Startup
     {
@@ -55,6 +55,8 @@ namespace PruebasWebNetCore.Web
             //Para repositorios
             services.AddScoped<IColorRepository, ColorRepository>();
             services.AddScoped<IImpresionRepository, ImpresionRepository>();
+            services.AddScoped<IProductoRepository, ProductoRepository>();
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {

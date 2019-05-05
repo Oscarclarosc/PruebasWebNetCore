@@ -12,6 +12,8 @@ namespace PruebasWebNetCore.Web.Data
 
     public class DataContext : IdentityDbContext<User>
     {
+
+        //Son las instrucciones para que el modelo se mande a la base de datos
         public DbSet<Color> Colores { get; set; } // se recomiendan llamar las propiedades en plural
 
         public DbSet<ImpresionPedido> Impresiones { get; set; }

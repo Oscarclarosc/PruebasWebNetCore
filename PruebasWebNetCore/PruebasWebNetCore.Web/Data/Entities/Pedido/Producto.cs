@@ -14,11 +14,11 @@ namespace PruebasWebNetCore.Web.Data.Entities
         public decimal Ancho { get; set; }
 
         [Required(ErrorMessage = "Se necesita el Largo del Producto")]
-        [DisplayFormat(DataFormatString = "{0:N2}")]
+        [DisplayFormat(DataFormatString = "{0:N2}" ,ApplyFormatInEditMode = false)]
         public decimal Largo { get; set; }
 
         [Required(ErrorMessage = "Se necesita el Espesor del Producto")]
-        [DisplayFormat(DataFormatString = "{0:N2}")]
+        [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public decimal Espesor { get; set; }
 
         [Required(ErrorMessage = "Se necesita el Material del Producto")]

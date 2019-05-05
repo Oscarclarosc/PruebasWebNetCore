@@ -27,11 +27,13 @@ namespace PruebasWebNetCore.Web.Data.Entities
         public DateTime Fecha { get; set; }
 
         //Relacion uno a muchos
+        [Required]
         public Producto Producto { get; set; }
 
         //Relacion 0 a uno
         public ImpresionPedido Impresion { get; set; }
 
+        [Required]
         public Empresa Empresa { get; set; }
 
 

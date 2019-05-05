@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PruebasWebNetCore.Web.Data.Entities
 {
-    public class Empleado : User
+    public class Empleado : Persona
     {
 
         [Required]

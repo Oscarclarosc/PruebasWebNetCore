@@ -35,12 +35,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Colores" asp-action="Index">Colores</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Impresiones" asp-action="Index">Impresion Pedido</a>
-                        </li>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            @if (this.User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Colores" asp-action="Index"> Colores</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Impresiones" asp-action="Index"> Impresion Pedido</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Productos" asp-action="Index"> Producto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Account" asp-action="Register"> Registrar Nueva Cuenta</a>
+                                </li>
+                            }
+                            @if (this.User.IsInRole("Extrusor"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Colores" asp-action="Index"> Colores</a>
+                                </li>
+                            }
+                        }
+
                     </ul>
                 </div>
                 <div>
