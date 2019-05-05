@@ -25,6 +25,5 @@ namespace PruebasWebNetCore.Web.Data.Entities
         [Display(Name = "Esta Disponible?")]
         public bool Estado { get; set; }
 
-        public ICollection<ImpresionPedido> ImpresionesPedido { get; set; }
     }
 }

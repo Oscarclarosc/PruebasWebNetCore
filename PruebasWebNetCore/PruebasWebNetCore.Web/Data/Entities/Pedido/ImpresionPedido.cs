@@ -18,13 +18,17 @@ namespace PruebasWebNetCore.Web.Data.Entities
         [Display(Name = "Caras Impresas")]
         public int CarasImpresas { get; set; }
 
-        //TODO: agregar el displayformat para mostrar cm junto al numero
+        //TODO: agregar el displayformat para mostrar cm junto al numero si se puede
         [Required(ErrorMessage = "Se necesita la dimension del rodillo")]
         [Display(Name = "Dimension del Rodillo")]
-        public int DimensionRodillo { get; set; }
+        public decimal DimensionRodillo { get; set; }
 
         //
+        [Required]
         public Color Color { get; set; }
 
+
+        public int PedidoId { get; set; }
+        public Pedido Pedido { get; set; }
     }
 }

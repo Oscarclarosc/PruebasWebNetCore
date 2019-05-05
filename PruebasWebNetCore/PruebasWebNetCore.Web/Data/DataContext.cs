@@ -16,6 +16,31 @@ namespace PruebasWebNetCore.Web.Data
 
         public DbSet<ImpresionPedido> Impresiones { get; set; }
 
+        public DbSet<Producto> Productos { get; set; }
+
+        public DbSet<Pedido> Pedidos { get; set; }
+
+        public DbSet<Direccion> Direcciones { get; set; }
+
+        public DbSet<Empresa> Empresas { get; set; }
+
+        public DbSet<Empleado> Empleados { get; set; }
+
+        public DbSet<Telefono> Telefonos { get; set; }
+
+        public DbSet<Fase> Fases { get; set; }
+
+        public DbSet<InformacionFase> InformacionesFases { get; set; }
+
+        public DbSet<Desecho> Desechoes { get; set; }
+
+        public DbSet<ProductoTerminado> ProductosTerminados { get; set; }
+
+        public DbSet<MateriaPrima> MateriasPrimas { get; set; }
+
+
+
+
 
         //constructor
         public DataContext(DbContextOptions<DataContext> options) : base(options)
@@ -35,11 +60,23 @@ namespace PruebasWebNetCore.Web.Data
             {
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             }
-            
-            builder.Entity<ImpresionPedido>()
-                .HasOne(e => e.Color)
-                .WithMany(c => c.ImpresionesPedido)
-                .IsRequired();
+
+            //Relaciones 1 a 0..1
+            builder.Entity<Pedido>()
+            .HasOne<ImpresionPedido>(s => s.Impresion)
+            .WithOne(ad => ad.Pedido)
+            .HasForeignKey<ImpresionPedido>(ad => ad.PedidoId);
+
+            builder.Entity<InformacionFase>()
+            .HasOne<Desecho>(s => s.Desecho)
+            .WithOne(ad => ad.InformacionFase)
+            .HasForeignKey<Desecho>(ad => ad.InformacionFaseId);
+
+            builder.Entity<InformacionFase>()
+            .HasOne<ProductoTerminado>(s => s.ProductoTerminado)
+            .WithOne(ad => ad.InformacionFase)
+            .HasForeignKey<ProductoTerminado>(ad => ad.InformacionFaseId);
+
         }
 
     }
