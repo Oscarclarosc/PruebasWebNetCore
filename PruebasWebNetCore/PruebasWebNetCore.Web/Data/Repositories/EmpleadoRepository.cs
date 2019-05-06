@@ -8,10 +8,9 @@ namespace PruebasWebNetCore.Web.Data.Repositories
     {
         private readonly DataContext context;
 
-        public EmpleadoRepository(DataContext context) : base(context)
+        public EmpleadoRepository(DataContext context) :base(context)
         {
             this.context = context;
         }
-
     }
 }

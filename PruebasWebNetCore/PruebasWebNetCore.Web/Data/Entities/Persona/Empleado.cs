@@ -20,6 +20,9 @@ namespace PruebasWebNetCore.Web.Data.Entities
         [Display(Name = "Hora de Entrada")]
         public DateTime HoraEntrada { get; set; }
 
+        [Display(Name = "Imagen")]
+        public string ImagenUrl { get; set; }
+
         public bool Estado { get; set; }
     }
 }

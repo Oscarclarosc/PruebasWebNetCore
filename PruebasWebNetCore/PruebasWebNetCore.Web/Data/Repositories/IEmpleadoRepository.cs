@@ -7,5 +7,6 @@ namespace PruebasWebNetCore.Web.Data.Repositories
     public interface IEmpleadoRepository : IGenericRepository<Empleado>
     {
 
+
     }
 }

@@ -4,31 +4,27 @@ namespace PruebasWebNetCore.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using Data.Entities;
-    using Data.Repositories;
-    using System.Threading.Tasks;
-    using PruebasWebNetCore.Web.Models;
-    using System.IO;
-    using System;
-    using Microsoft.AspNetCore.Authorization;
+    using PruebasWebNetCore.Web.Data.Entities;
+    using PruebasWebNetCore.Web.Data.Repositories;
     using PruebasWebNetCore.Web.Helpers;
+    using PruebasWebNetCore.Web.Models;
+    using System;
+    using System.IO;
+    using System.Threading.Tasks;
 
-    [Authorize]
-    public class ColoresController : Controller
+    public class EmpleadosController : Controller
     {
-        //private readonly DataContext _context;
-        private readonly IColorRepository colorRepository;
+        private readonly IEmpleadoRepository empleadoRepository;
 
-        public ColoresController(IColorRepository colorRepository)
+        public EmpleadosController(IEmpleadoRepository empleadoRepository)
         {
-            //_context = context;
-            this.colorRepository = colorRepository;
+            this.empleadoRepository = empleadoRepository;
         }
 
-        // GET: Colores
+        //GET
         public IActionResult Index()
         {
-            return View(this.colorRepository.GetAll());
+            return View(this.empleadoRepository.GetAll());
         }
 
         // GET: Colores/Details/5
@@ -36,17 +32,18 @@ namespace PruebasWebNetCore.Web.Controllers
         {
             if (id == null)
             {
-                return new NotFoundViewResult("ColorNotFound");
+                return new NotFoundViewResult("EmpleadoNotFound");
             }
 
-            var color = await this.colorRepository.GetByIdAsync(id.Value);
-            if (color == null)
+            var empleado = await this.empleadoRepository.GetByIdAsync(id.Value);
+            if (empleado == null)
             {
-                return new NotFoundViewResult("ColorNotFound");
+                return new NotFoundViewResult("EmpleadoNotFound");
             }
 
-            return View(color);
+            return View(empleado);
         }
+
 
         // GET: Colores/Create
         public IActionResult Create()
@@ -57,7 +54,7 @@ namespace PruebasWebNetCore.Web.Controllers
         // POST: Colores/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ColorViewModel view)
+        public async Task<IActionResult> Create(EmpleadoViewModel view)
         {
             if (ModelState.IsValid)
             {
@@ -66,8 +63,8 @@ namespace PruebasWebNetCore.Web.Controllers
 
                 if (view.ImagenFile != null && view.ImagenFile.Length > 0)
                 {
-                    path = Path.Combine(Directory.GetCurrentDirectory(), 
-                        "wwwroot\\images\\Colores", 
+                    path = Path.Combine(Directory.GetCurrentDirectory(),
+                        "wwwroot\\images\\Empleados",
                         view.ImagenFile.FileName);
 
                     using (var stream = new FileStream(path, FileMode.Create))
@@ -75,28 +72,32 @@ namespace PruebasWebNetCore.Web.Controllers
                         await view.ImagenFile.CopyToAsync(stream);
                     }
 
-                    path = $"~/images/Colores/{view.ImagenFile.FileName}";
+                    path = $"~/images/Empleados/{view.ImagenFile.FileName}";
                 }
 
 
-                var color = this.ToColor(view, path);
+                var empleado = this.ToEmpleado(view, path);
 
-                await this.colorRepository.CreateAsync(color);
+                await this.empleadoRepository.CreateAsync(empleado);
                 return RedirectToAction(nameof(Index));
             }
             return View(view);
         }
 
-
-        //buscar otra forma de hacer esto
-        private Color ToColor(ColorViewModel view, string path)
+        private Empleado ToEmpleado(EmpleadoViewModel view, string path)
         {
-            return new Color
+            return new Empleado
             {
-                Id=view.Id,
+                Id = view.Id,
                 ImagenUrl = path,
                 Nombre = view.Nombre,
-                Codigo = view.Codigo,
+                ApellidoPaterno = view.ApellidoPaterno,
+                ApellidoMaterno = view.ApellidoMaterno,
+                Ci = view.Ci,
+                FechaNacimiento = view.FechaNacimiento,
+                Cargo = view.Cargo,
+                FechaContrato = view.FechaContrato,
+                HoraEntrada = view.HoraEntrada,
                 Estado = view.Estado
             };
         }
@@ -109,33 +110,39 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var color = await this.colorRepository.GetByIdAsync(id.Value);
-            if (color == null)
+            var empleado = await this.empleadoRepository.GetByIdAsync(id.Value);
+            if (empleado == null)
             {
                 return NotFound();
             }
 
-            var view = this.ToColorViewModel(color);
+            var view = this.ToEmpleadoViewModel(empleado);
 
             return View(view);
         }
 
-        private ColorViewModel ToColorViewModel(Color color)
+        private EmpleadoViewModel ToEmpleadoViewModel(Empleado empleado)
         {
-            return new ColorViewModel
+            return new EmpleadoViewModel
             {
-                Id = color.Id,
-                ImagenUrl = color.ImagenUrl,
-                Nombre = color.Nombre,
-                Codigo = color.Codigo,
-                Estado = color.Estado
+                Id = empleado.Id,
+                ImagenUrl = empleado.ImagenUrl,
+                Nombre = empleado.Nombre,
+                ApellidoPaterno = empleado.ApellidoPaterno,
+                ApellidoMaterno = empleado.ApellidoMaterno,
+                Ci = empleado.Ci,
+                FechaNacimiento = empleado.FechaNacimiento,
+                Cargo = empleado.Cargo,
+                FechaContrato = empleado.FechaContrato,
+                HoraEntrada = empleado.HoraEntrada,
+                Estado = empleado.Estado
             };
         }
 
         // POST: Colores/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ColorViewModel view)
+        public async Task<IActionResult> Edit(EmpleadoViewModel view)
         {
             if (ModelState.IsValid)
             {
@@ -146,7 +153,7 @@ namespace PruebasWebNetCore.Web.Controllers
                     if (view.ImagenFile != null && view.ImagenFile.Length > 0)
                     {
                         path = Path.Combine(Directory.GetCurrentDirectory(),
-                            "wwwroot\\images\\Colores",
+                            "wwwroot\\images\\Empleados",
                             view.ImagenFile.FileName);
 
                         using (var stream = new FileStream(path, FileMode.Create))
@@ -154,16 +161,16 @@ namespace PruebasWebNetCore.Web.Controllers
                             await view.ImagenFile.CopyToAsync(stream);
                         }
 
-                        path = $"~/images/Colores/{view.ImagenFile.FileName}";
+                        path = $"~/images/Empleados/{view.ImagenFile.FileName}";
                     }
 
 
-                    var color = this.ToColor(view, path);
-                    await this.colorRepository.UpdateAsync(color);
+                    var color = this.ToEmpleado(view, path);
+                    await this.empleadoRepository.UpdateAsync(color);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await this.colorRepository.ExistAsync(view.Id))
+                    if (!await this.empleadoRepository.ExistAsync(view.Id))
                     {
                         return NotFound();
                     }
@@ -185,7 +192,7 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var color = await this.colorRepository.GetByIdAsync(id.Value);
+            var color = await this.empleadoRepository.GetByIdAsync(id.Value);
             if (color == null)
             {
                 return NotFound();
@@ -199,8 +206,8 @@ namespace PruebasWebNetCore.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var color = await this.colorRepository.GetByIdAsync(id);
-            await this.colorRepository.DeleteAsync(color);
+            var color = await this.empleadoRepository.GetByIdAsync(id);
+            await this.empleadoRepository.DeleteAsync(color);
             return RedirectToAction(nameof(Index));
         }
 
@@ -208,6 +215,7 @@ namespace PruebasWebNetCore.Web.Controllers
         {
             return this.View();
         }
+
 
     }
 }

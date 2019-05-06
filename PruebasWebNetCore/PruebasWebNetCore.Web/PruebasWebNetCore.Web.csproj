@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\Colores\" />
+    <Folder Include="wwwroot\images\Empleados\" />
   </ItemGroup>
 
 

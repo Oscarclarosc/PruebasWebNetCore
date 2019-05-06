@@ -86,7 +86,7 @@ namespace PruebasWebNetCore.Web.Controllers
                         this.ModelState.AddModelError(string.Empty, "The user couldn't be created.");
                         return this.View(model);
                     }
-
+                    await this.userHelper.CheckRoleAsync(model.Cargo);
                     await this.userHelper.AddUserToRoleAsync(user, model.Cargo);
                     var isInRole = await this.userHelper.IsUserInRoleAsync(user, model.Cargo);
 
