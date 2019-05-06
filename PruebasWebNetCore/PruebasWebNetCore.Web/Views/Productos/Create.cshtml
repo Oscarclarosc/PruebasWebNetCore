@@ -1,4 +1,4 @@
-﻿@model PruebasWebNetCore.Web.Data.Entities.Producto
+﻿@model PruebasWebNetCore.Web.Models.ProductoViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -43,12 +43,18 @@
                 <input asp-for="TipoCorte" class="form-control" />
                 <span asp-validation-for="TipoCorte" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="ColorId" class="control-label"></label>
+                <select asp-for="ColorId" asp-items="Model.Colores" class="form-control"></select>
+                <span asp-validation-for="ColorId" class="text-danger"></span>
+            </div>
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
                 </label>
             </div>
-            
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -59,4 +65,8 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 

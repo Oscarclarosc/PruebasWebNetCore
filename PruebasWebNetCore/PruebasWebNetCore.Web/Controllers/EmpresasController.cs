@@ -4,9 +4,9 @@ namespace PruebasWebNetCore.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using PruebasWebNetCore.Web.Data.Entities;
-    using PruebasWebNetCore.Web.Data.Repositories;
-    using PruebasWebNetCore.Web.Helpers;
+    using Data.Entities;
+    using Data.Repositories;
+    using Helpers;
     using System.Threading.Tasks;
 
     public class EmpresasController : Controller
