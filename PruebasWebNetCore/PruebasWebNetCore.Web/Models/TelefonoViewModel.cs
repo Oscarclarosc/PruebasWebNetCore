@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 
-namespace PruebasWebNetCore.Web.Data.Entities
+namespace PruebasWebNetCore.Web.Models
 {
-    public class Telefono:IEntity
+    using System.ComponentModel.DataAnnotations;
+
+    public class TelefonoViewModel
     {
-        public int Id { get; set; }
+        public int PoseedorId { get; set; }
+
+        public int TelefonoId { get; set; }
 
         [Required]
         public int Numero { get; set; }
@@ -18,6 +18,5 @@ namespace PruebasWebNetCore.Web.Data.Entities
         public string Extencion { get; set; }
 
         public bool Estado { get; set; }
-
     }
 }

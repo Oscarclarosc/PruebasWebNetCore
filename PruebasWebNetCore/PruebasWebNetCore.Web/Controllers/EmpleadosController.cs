@@ -21,13 +21,185 @@ namespace PruebasWebNetCore.Web.Controllers
             this.empleadoRepository = empleadoRepository;
         }
 
-        //GET
-        public IActionResult Index()
+        ///Telefono
+        public async Task<IActionResult> DeleteTelefono(int? id)
         {
-            return View(this.empleadoRepository.GetAll());
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var telefono = await this.empleadoRepository.GetTelefonoAsync(id.Value);
+            if (telefono == null)
+            {
+                return NotFound();
+            }
+
+            var empleadoId = await this.empleadoRepository.DeleteTelefonoAsync(telefono);
+            //TODO: arreglar
+            return this.RedirectToAction("Index");
         }
 
-        // GET: Colores/Details/5
+        public async Task<IActionResult> EditTelefono(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var telefono = await this.empleadoRepository.GetTelefonoAsync(id.Value);
+            if (telefono == null)
+            {
+                return NotFound();
+            }
+
+            return View(telefono);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTelefono(Telefono telefono)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var empleadoId = await this.empleadoRepository.UpdateTelefonoAsync(telefono);
+                if (empleadoId != 0)
+                {
+                    //TODO: revisar por que esta cosa me da error
+                    return this.RedirectToAction("Index");
+                }
+            }
+
+            return this.View(telefono);
+        }
+
+        public async Task<IActionResult> AddTelefono(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var empleado = await this.empleadoRepository.GetByIdAsync(id.Value);
+            if (empleado == null)
+            {
+                return NotFound();
+            }
+
+            var model = new TelefonoViewModel { PoseedorId = empleado.Id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTelefono(TelefonoViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                await this.empleadoRepository.AddTelefonoAsync(model);
+                //TODO: revisar por que esta cosa me da error
+                return this.RedirectToAction("Index");
+            }
+
+            return this.View(model); 
+        }
+
+
+
+
+        //Direcciones
+        public async Task<IActionResult> DeleteDireccion(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var direccion = await this.empleadoRepository.GetDireccionAsync(id.Value);
+            if (direccion == null)
+            {
+                return NotFound();
+            }
+
+            var empleadoId = await this.empleadoRepository.DeleteDireccionAsync(direccion);
+            //TODO: arreglar
+            return this.RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> EditDireccion(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var direccion = await this.empleadoRepository.GetDireccionAsync(id.Value);
+            if (direccion == null)
+            {
+                return NotFound();
+            }
+
+            return View(direccion);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditDireccion(Direccion direccion)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var empleadoId = await this.empleadoRepository.UpdateDireccionAsync(direccion);
+                if (empleadoId != 0)
+                {
+                    //TODO: revisar por que esta cosa me da error
+                    return this.RedirectToAction("Index");
+                }
+            }
+
+            return this.View(direccion);
+        }
+
+        public async Task<IActionResult> AddDireccion(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var empleado = await this.empleadoRepository.GetByIdAsync(id.Value);
+            if (empleado == null)
+            {
+                return NotFound();
+            }
+
+            var model = new DireccionViewModel { PoseedorId = empleado.Id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDireccion(DireccionViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                await this.empleadoRepository.AddDireccionAsync(model);
+                //TODO: revisar por que esta cosa me da error
+                return this.RedirectToAction("Index");
+            }
+
+            return this.View(model);
+        }
+
+
+
+
+
+
+
+
+
+        public IActionResult Index()
+        {
+            return View(this.empleadoRepository.GetEmpleadosConDireccionesYTelefonos());
+        }
+
+        // GET: 
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,7 +207,7 @@ namespace PruebasWebNetCore.Web.Controllers
                 return new NotFoundViewResult("EmpleadoNotFound");
             }
 
-            var empleado = await this.empleadoRepository.GetByIdAsync(id.Value);
+            var empleado = await this.empleadoRepository.GetEmpleadoConDireccionYTelefonoAsync(id.Value);
             if (empleado == null)
             {
                 return new NotFoundViewResult("EmpleadoNotFound");
@@ -45,13 +217,14 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
 
-        // GET: Colores/Create
+
+        // GET: 
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Colores/Create
+        // POST: 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EmpleadoViewModel view)
@@ -102,7 +275,7 @@ namespace PruebasWebNetCore.Web.Controllers
             };
         }
 
-        // GET: Colores/Edit/5
+        // GET: 
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -139,7 +312,7 @@ namespace PruebasWebNetCore.Web.Controllers
             };
         }
 
-        // POST: Colores/Edit/5
+        // POST: 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EmpleadoViewModel view)
@@ -184,7 +357,7 @@ namespace PruebasWebNetCore.Web.Controllers
             return View(view);
         }
 
-        // GET: Colores/Delete/5
+        // GET
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -192,16 +365,16 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var color = await this.empleadoRepository.GetByIdAsync(id.Value);
-            if (color == null)
+            var empleado = await this.empleadoRepository.GetByIdAsync(id.Value);
+            if (empleado == null)
             {
                 return NotFound();
             }
 
-            return View(color);
+            return View(empleado);
         }
 
-        // POST: Colores/Delete/5
+        // POST: 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

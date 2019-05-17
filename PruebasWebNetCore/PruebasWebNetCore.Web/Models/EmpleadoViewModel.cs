@@ -8,7 +8,7 @@ namespace PruebasWebNetCore.Web.Models
 
     public class EmpleadoViewModel : Empleado
     {
-        [Display(Name = "Imagen")]
+        [Display(Name = "Foto")]
         public IFormFile ImagenFile { get; set; }
     }
 }

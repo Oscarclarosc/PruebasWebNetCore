@@ -4,6 +4,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
 {
     using System.Threading.Tasks;
     using PruebasWebNetCore.Web.Data.Entities;
+    using PruebasWebNetCore.Web.Models;
 
     public class ProductoRepository : GenericRepository<Producto>, IProductoRepository
     {
@@ -14,18 +15,6 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             this.context = context;
         }
 
-        public async Task AddColorToProductAsync(Color colorModelo)
-        {
-            var color = await this.context.Colores.FindAsync(colorModelo.Id);
 
-            if(color == null)
-            {
-                return;
-            }
-
-
-
-            throw new System.NotImplementedException();
-        }
     }
 }

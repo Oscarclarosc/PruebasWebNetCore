@@ -78,5 +78,7 @@ namespace PruebasWebNetCore.Web.Helpers
         {
             return await this.userManager.UpdateAsync(user);
         }
+
+
     }
 }

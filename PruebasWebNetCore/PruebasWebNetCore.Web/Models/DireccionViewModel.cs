@@ -1,12 +1,14 @@
 ﻿
 
-namespace PruebasWebNetCore.Web.Data.Entities
+namespace PruebasWebNetCore.Web.Models
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Direccion:IEntity
+    public class DireccionViewModel
     {
-        public int Id { get; set; }
+        public int PoseedorId { get; set; }
+
+        public int DireccionId { get; set; }
 
         [Required]
         [MaxLength(30, ErrorMessage = " El campo no puede tener mas caracteres")]
@@ -22,6 +24,5 @@ namespace PruebasWebNetCore.Web.Data.Entities
         public string DireccionFisica { get; set; }
 
         public bool Estado { get; set; }
-
     }
 }
