@@ -6,7 +6,6 @@ namespace PruebasWebNetCore.Web.Data.Entities
 
     public class Producto : IEntity
     {
-
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Se necesita el Ancho del Producto")]

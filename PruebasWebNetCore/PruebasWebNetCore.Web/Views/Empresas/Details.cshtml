@@ -10,10 +10,10 @@
     <h4>Empresa</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nombre)
         </dd>
     </dl>
@@ -21,4 +21,81 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
+    <a asp-action="AddTelefono" asp-route-id="@Model.Id" class="btn btn-info">Add telefono</a>
+    <a asp-action="AddDireccion" asp-route-id="@Model.Id" class="btn btn-info">Add direccion</a>
 </div>
+
+<h4>Telefonos</h4>
+@if (Model.Telefonos == null || Model.Telefonos.Count == 0)
+{
+    <h5>No se han agregado telefonos</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefonos.FirstOrDefault().Numero)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Telefonos.OrderBy(c => c.Numero))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Extencion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numero)
+                    </td>
+                    <td id="@item.Id">
+                        <a asp-action="EditTelefono" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="DeleteTelefono" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h4>Direcciones</h4>
+@if (Model.Direcciones == null || Model.Direcciones.Count == 0)
+{
+    <h5>No se han agregado direcciones</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Direcciones.FirstOrDefault().DireccionFisica)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Direcciones.OrderBy(c => c.DireccionFisica))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pais)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ciudad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DireccionFisica)
+                    </td>
+                    <td id="@item.Id">
+                        <a asp-action="EditDireccion" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="DeleteDireccion" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

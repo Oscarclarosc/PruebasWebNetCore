@@ -21,6 +21,7 @@ namespace PruebasWebNetCore.Web.Controllers
             this.empleadoRepository = empleadoRepository;
         }
 
+
         ///Telefono
         public async Task<IActionResult> DeleteTelefono(int? id)
         {
@@ -384,7 +385,7 @@ namespace PruebasWebNetCore.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult ColorNotFound()
+        public IActionResult EmpleadoNotFound()
         {
             return this.View();
         }
