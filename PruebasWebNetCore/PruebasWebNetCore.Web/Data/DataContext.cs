@@ -40,8 +40,9 @@ namespace PruebasWebNetCore.Web.Data
 
         public DbSet<MateriaPrima> MateriasPrimas { get; set; }
 
+        public DbSet<Country> Countries { get; set; }
 
-
+        public DbSet<City> Cities { get; set; }
 
 
         //constructor

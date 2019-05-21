@@ -94,8 +94,6 @@ namespace PruebasWebNetCore.Web.Data.Repositories
 
             var direccion = new Direccion
             {
-                Pais = model.Pais,
-                Ciudad = model.Ciudad,
                 DireccionFisica = model.DireccionFisica,
                 Estado = model.Estado
             };

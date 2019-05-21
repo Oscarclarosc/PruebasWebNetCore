@@ -54,11 +54,9 @@ namespace PruebasWebNetCore.Web
             services.AddScoped<IUserHelper, UserHelper>();
             //Para repositorios
             services.AddScoped<IColorRepository, ColorRepository>();
-            services.AddScoped<IImpresionRepository, ImpresionRepository>();
-            services.AddScoped<IProductoRepository, ProductoRepository>();
             services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
             services.AddScoped<IEmpresaRepository, EmpresaRepository>();
-
+            services.AddScoped<ICountryRepository, CountryRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

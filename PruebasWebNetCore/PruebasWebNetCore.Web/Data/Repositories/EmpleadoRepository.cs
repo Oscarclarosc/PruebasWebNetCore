@@ -11,10 +11,12 @@ namespace PruebasWebNetCore.Web.Data.Repositories
     public class EmpleadoRepository : GenericRepository<Empleado>, IEmpleadoRepository
     {
         private readonly DataContext context;
+        private readonly ICountryRepository countryRepository;
 
-        public EmpleadoRepository(DataContext context) :base(context)
+        public EmpleadoRepository(DataContext context, ICountryRepository countryRepository) : base(context)
         {
             this.context = context;
+            this.countryRepository = countryRepository;
         }
 
         //Telefono
@@ -85,6 +87,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
 
         //Direccion
 
+
         public async Task AddDireccionAsync(DireccionViewModel model)
         {
             var empleado = await this.GetEmpleadoConDireccionAsync(model.PoseedorId);
@@ -93,11 +96,12 @@ namespace PruebasWebNetCore.Web.Data.Repositories
                 return;
             }
 
+            var city = await this.countryRepository.GetCityAsync(model.CityId);
             var direccion = new Direccion
             {
-                Pais = model.Pais,
-                Ciudad = model.Ciudad,
                 DireccionFisica = model.DireccionFisica,
+                City = city,
+                CityId=model.CityId,
                 Estado = model.Estado
             };
             empleado.Direcciones.Add(direccion);

@@ -10,15 +10,18 @@ namespace PruebasWebNetCore.Web.Controllers
     using PruebasWebNetCore.Web.Models;
     using System;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class EmpleadosController : Controller
     {
         private readonly IEmpleadoRepository empleadoRepository;
+        private readonly ICountryRepository countryRepository;
 
-        public EmpleadosController(IEmpleadoRepository empleadoRepository)
+        public EmpleadosController(IEmpleadoRepository empleadoRepository, ICountryRepository countryRepository)
         {
             this.empleadoRepository = empleadoRepository;
+            this.countryRepository = countryRepository;
         }
 
 
@@ -107,6 +110,13 @@ namespace PruebasWebNetCore.Web.Controllers
 
 
         //Direcciones
+        //para cascade dropdown list
+        public async Task<JsonResult> GetCitiesAsync(int countryId)
+        {
+            var country = await this.countryRepository.GetCountryWithCitiesAsync(countryId);
+            return this.Json(country.Cities.OrderBy(c => c.Name));
+        }
+
         public async Task<IActionResult> DeleteDireccion(int? id)
         {
             if (id == null)
@@ -170,7 +180,12 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var model = new DireccionViewModel { PoseedorId = empleado.Id };
+            var model = new DireccionViewModel {
+                PoseedorId = empleado.Id,
+                Countries = this.countryRepository.GetComboCountries(),
+                Cities=this.countryRepository.GetComboCities(0)
+            };
+
             return View(model);
         }
 
@@ -179,6 +194,7 @@ namespace PruebasWebNetCore.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
+                
                 await this.empleadoRepository.AddDireccionAsync(model);
                 //TODO: revisar por que esta cosa me da error
                 return this.RedirectToAction("Index");
@@ -201,6 +217,7 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
         // GET: 
+        //TODO: hacer que salga el nombre de la ciudad y no solo el id
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -277,6 +294,7 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
         // GET: 
+        //TODO: hacer que que traiga el dato de fecha de nacimineto y fecha de contratacion
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

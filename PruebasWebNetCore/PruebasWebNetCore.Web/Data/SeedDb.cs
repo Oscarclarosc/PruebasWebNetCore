@@ -8,6 +8,7 @@ namespace PruebasWebNetCore.Web.Data
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     public class SeedDb
     {
@@ -36,6 +37,26 @@ namespace PruebasWebNetCore.Web.Data
             await this.userHelper.CheckRoleAsync("Reciclador");*/
 
             var user = await this.userHelper.GetUserByEmailAsync("oscarclarosc@gmail.com");
+
+            if (!this.context.Countries.Any())
+            {
+                var cities = new List<City>();
+                cities.Add(new City { Name = "Santa Cruz" });
+                cities.Add(new City { Name = "Cochabamba" });
+                cities.Add(new City { Name = "Potosi" });
+                cities.Add(new City { Name = "La paz" });
+                cities.Add(new City { Name = "Tarija" });
+                cities.Add(new City { Name = "Beni" });
+                cities.Add(new City { Name = "Pando" });
+                cities.Add(new City { Name = "Chiquisaca" });
+                cities.Add(new City { Name = "Oruro" });
+                this.context.Countries.Add(new Country
+                {
+                    Cities = cities,
+                    Name = "Bolivia"
+                });
+                await this.context.SaveChangesAsync();
+            }
 
             //creo que esto estaba mal
             if (user == null)
