@@ -9,6 +9,8 @@ namespace PruebasWebNetCore.Web.Data.Repositories
     public interface IProductoRepository : IGenericRepository<Producto>
     {
 
+        Task AddProductoAsync(ProductoViewModel model);
+        Task UpdateProductoAsync(ProductoViewModel model);
 
     }
 }

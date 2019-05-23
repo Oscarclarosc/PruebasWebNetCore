@@ -40,34 +40,34 @@
                             @if (this.User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Colores" asp-action="Index"> Colores</a>
+                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Colores" asp-action="Index"> Colores</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Impresiones" asp-action="Index"> Impresion Pedido</a>
+                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Impresiones" asp-action="Index"> Impresion Pedido</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Productos" asp-action="Index"> Producto</a>
+                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Productos" asp-action="Index"> Producto</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Account" asp-action="Register"> Registrar Nueva Cuenta</a>
+                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Account" asp-action="Register"> Registrar Nueva Cuenta</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Empleados" asp-action="Index"> Empleados</a>
+                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Empleados" asp-action="Index"> Empleados</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Empresas" asp-action="Index"> Empresas</a>
+                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Empresas" asp-action="Index"> Empresas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Countries" asp-action="Index"> Paises</a>
+                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Countries" asp-action="Index"> Paises</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="MateriasPrimas" asp-action="Index"> Materia Prima</a>
+                                    <a class="nav-link text-dark"  asp-area="" asp-controller="MateriasPrimas" asp-action="Index"> Materia Prima</a>
                                 </li>
                             }
                             @if (this.User.IsInRole("Extrusor"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark btn btn-outline-success" asp-area="" asp-controller="Colores" asp-action="Index"> Colores</a>
+                                    <a  asp-area="" asp-controller="Colores" asp-action="Index"> Colores</a>
                                 </li>
                             }
                         }

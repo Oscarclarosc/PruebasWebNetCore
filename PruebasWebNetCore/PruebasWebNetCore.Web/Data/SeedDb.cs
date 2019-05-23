@@ -36,6 +36,9 @@ namespace PruebasWebNetCore.Web.Data
             await this.userHelper.CheckRoleAsync("Jefe de Produccion");
             await this.userHelper.CheckRoleAsync("Reciclador");*/
 
+
+            //TODO: agregar materias Primas por defecto
+
             var user = await this.userHelper.GetUserByEmailAsync("oscarclarosc@gmail.com");
 
             if (!this.context.Countries.Any())

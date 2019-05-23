@@ -1,27 +1,31 @@
 ﻿
-
 namespace PruebasWebNetCore.Web.Controllers
 {
+
     using Microsoft.AspNetCore.Mvc;
     using PruebasWebNetCore.Web.Data.Entities;
     using PruebasWebNetCore.Web.Data.Repositories;
     using PruebasWebNetCore.Web.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
-    public class MateriasPrimasController : Controller
+
+    public class ProductosController:Controller
     {
-        private readonly IMateriaPrimaRepository materiaPrimaRepository;
+        private readonly IProductoRepository productoRepository;
         private readonly IColorRepository colorRepository;
 
-        public MateriasPrimasController(IMateriaPrimaRepository materiaPrimaRepository, IColorRepository colorRepository)
+        public ProductosController(IProductoRepository productoRepository, IColorRepository colorRepository)
         {
-            this.materiaPrimaRepository = materiaPrimaRepository;
+            this.productoRepository = productoRepository;
             this.colorRepository = colorRepository;
         }
 
         public IActionResult Index()
         {
-            return View(this.materiaPrimaRepository.GetAll());
+            return View(this.productoRepository.GetAll());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -31,18 +35,18 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var materiaPrima = await this.materiaPrimaRepository.GetByIdAsync(id.Value);
-            if (materiaPrima == null)
+            var producto = await this.productoRepository.GetByIdAsync(id.Value);
+            if (producto == null)
             {
                 return NotFound();
             }
 
-            return View(materiaPrima);
+            return View(producto);
         }
 
         public IActionResult Create()
         {
-            var model = new MateriaPrimaViewModel
+            var model = new ProductoViewModel
             {
                 Colores = this.colorRepository.GetComboColors()
             };
@@ -52,11 +56,11 @@ namespace PruebasWebNetCore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(MateriaPrimaViewModel model)
+        public async Task<IActionResult> Create(ProductoViewModel model)
         {
             if (ModelState.IsValid)
             {
-                await this.materiaPrimaRepository.AddMateriaPrimaAsync(model);
+                await this.productoRepository.AddProductoAsync(model);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -70,39 +74,42 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var materiaPrima = await this.materiaPrimaRepository.GetByIdAsync(id.Value);
-            if (materiaPrima == null)
+            var producto = await this.productoRepository.GetByIdAsync(id.Value);
+            if (producto == null)
             {
                 return NotFound();
             }
 
-            var model = this.ToMateriaPimaViewModel(materiaPrima);
+            var model = this.ToProductoViewModel(producto);
 
             return View(model);
         }
 
-        private MateriaPrimaViewModel ToMateriaPimaViewModel(MateriaPrima materiaPrima)
+        private ProductoViewModel ToProductoViewModel(Producto producto)
         {
-            return new MateriaPrimaViewModel
+            return new ProductoViewModel
             {
-                MateriaPrimaId = materiaPrima.Id,
-                Clase = materiaPrima.Clase,
-                Estado = materiaPrima.Estado,
-                Nombre = materiaPrima.Nombre,
-                Tipo = materiaPrima.Tipo,
-                Observaciones = materiaPrima.Observaciones,
-                ColorId = materiaPrima.ColorId,
+                ProductoId = producto.Id,
+                Ancho = producto.Ancho,
+                Espesor = producto.Espesor,
+                Largo = producto.Largo,
+                Material = producto.Material,
+                TipoAcabado = producto.TipoAcabado,
+                TipoCorte = producto.TipoCorte,
+                Codigo = producto.Codigo,
+                Estado = producto.Estado,
+                ColorId = producto.ColorId,
                 Colores = this.colorRepository.GetComboColors()
             };
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(MateriaPrimaViewModel model)
+        public async Task<IActionResult> Edit(ProductoViewModel model)
         {
             if (ModelState.IsValid)
             {
-                await this.materiaPrimaRepository.UpdateMateriaPrimaAsync(model);
+                await this.productoRepository.UpdateProductoAsync(model);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -118,20 +125,25 @@ namespace PruebasWebNetCore.Web.Controllers
                 return NotFound();
             }
 
-            var materiaprima = await this.materiaPrimaRepository.GetByIdAsync(id.Value);
-            if (materiaprima == null)
+            var producto = await this.productoRepository.GetByIdAsync(id.Value);
+            if (producto == null)
             {
                 return NotFound();
             }
 
-            await this.materiaPrimaRepository.DeleteAsync(materiaprima);
+            await this.productoRepository.DeleteAsync(producto);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult MateriaPrimaNotFound()
+        public IActionResult ProductoNotFound()
         {
             return this.View();
         }
+
+
+
+
+
 
 
     }

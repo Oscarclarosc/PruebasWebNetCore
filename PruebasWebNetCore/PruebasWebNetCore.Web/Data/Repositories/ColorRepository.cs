@@ -20,7 +20,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
         {
             var list = this.context.Colores.Select(p => new SelectListItem
             {
-                Text = p.Nombre,
+                Text = p.Nombre +" "+ p.Codigo,
                 Value = p.Id.ToString()
             }).ToList();
 
