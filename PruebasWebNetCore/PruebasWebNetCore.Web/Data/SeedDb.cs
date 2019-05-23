@@ -48,7 +48,7 @@ namespace PruebasWebNetCore.Web.Data
                 cities.Add(new City { Name = "Tarija" });
                 cities.Add(new City { Name = "Beni" });
                 cities.Add(new City { Name = "Pando" });
-                cities.Add(new City { Name = "Chiquisaca" });
+                cities.Add(new City { Name = "Chuquisaca" });
                 cities.Add(new City { Name = "Oruro" });
                 this.context.Countries.Add(new Country
                 {

@@ -204,13 +204,6 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
 
-
-
-
-
-
-
-
         public IActionResult Index()
         {
             return View(this.empleadoRepository.GetEmpleadosConDireccionesYTelefonos());

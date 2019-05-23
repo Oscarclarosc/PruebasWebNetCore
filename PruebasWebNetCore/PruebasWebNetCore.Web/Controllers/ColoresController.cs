@@ -2,36 +2,33 @@
 
 namespace PruebasWebNetCore.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using Data.Entities;
     using Data.Repositories;
-    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using PruebasWebNetCore.Web.Helpers;
     using PruebasWebNetCore.Web.Models;
     using System.IO;
-    using System;
-    using Microsoft.AspNetCore.Authorization;
-    using PruebasWebNetCore.Web.Helpers;
+    using System.Threading.Tasks;
 
     [Authorize]
     public class ColoresController : Controller
     {
-        //private readonly DataContext _context;
         private readonly IColorRepository colorRepository;
 
         public ColoresController(IColorRepository colorRepository)
         {
-            //_context = context;
             this.colorRepository = colorRepository;
         }
 
-        // GET: Colores
+        // GET
         public IActionResult Index()
         {
             return View(this.colorRepository.GetAll());
         }
 
-        // GET: Colores/Details/5
+        // GET
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,13 +45,13 @@ namespace PruebasWebNetCore.Web.Controllers
             return View(color);
         }
 
-        // GET: Colores/Create
+        // GET
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Colores/Create
+        // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ColorViewModel view)
@@ -66,8 +63,8 @@ namespace PruebasWebNetCore.Web.Controllers
 
                 if (view.ImagenFile != null && view.ImagenFile.Length > 0)
                 {
-                    path = Path.Combine(Directory.GetCurrentDirectory(), 
-                        "wwwroot\\images\\Colores", 
+                    path = Path.Combine(Directory.GetCurrentDirectory(),
+                        "wwwroot\\images\\Colores",
                         view.ImagenFile.FileName);
 
                     using (var stream = new FileStream(path, FileMode.Create))
@@ -93,7 +90,7 @@ namespace PruebasWebNetCore.Web.Controllers
         {
             return new Color
             {
-                Id=view.Id,
+                Id = view.Id,
                 ImagenUrl = path,
                 Nombre = view.Nombre,
                 Codigo = view.Codigo,
@@ -101,7 +98,7 @@ namespace PruebasWebNetCore.Web.Controllers
             };
         }
 
-        // GET: Colores/Edit/5
+        // GET
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -132,7 +129,7 @@ namespace PruebasWebNetCore.Web.Controllers
             };
         }
 
-        // POST: Colores/Edit/5
+        // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ColorViewModel view)
@@ -177,7 +174,7 @@ namespace PruebasWebNetCore.Web.Controllers
             return View(view);
         }
 
-        // GET: Colores/Delete/5
+        // GET
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -194,7 +191,7 @@ namespace PruebasWebNetCore.Web.Controllers
             return View(color);
         }
 
-        // POST: Colores/Delete/5
+        // POST
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -34,7 +34,7 @@ namespace PruebasWebNetCore.Web.Data
 
         public DbSet<InformacionFase> InformacionesFases { get; set; }
 
-        public DbSet<Desecho> Desechoes { get; set; }
+        public DbSet<Desecho> Desechos { get; set; }
 
         public DbSet<ProductoTerminado> ProductosTerminados { get; set; }
 
