@@ -3,8 +3,11 @@
 namespace PruebasWebNetCore.Web.Helpers
 {
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using PruebasWebNetCore.Web.Data.Entities;
     using PruebasWebNetCore.Web.Models;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class UserHelper : IUserHelper
@@ -34,7 +37,7 @@ namespace PruebasWebNetCore.Web.Helpers
         {
             return await this.userManager.ChangePasswordAsync(user, oldPassword, newPassword);
         }
-
+        //
         public async Task CheckRoleAsync(string roleName)
         {
             var rolExists = await this.roleManager.RoleExistsAsync(roleName);
@@ -57,7 +60,7 @@ namespace PruebasWebNetCore.Web.Helpers
         {
             return await this.userManager.IsInRoleAsync(user, roleName);
         }
-
+        //
         public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
             return await this.signInManager.PasswordSignInAsync(
@@ -78,6 +81,59 @@ namespace PruebasWebNetCore.Web.Helpers
         {
             return await this.userManager.UpdateAsync(user);
         }
+        //
+        public async Task<SignInResult> ValidatePasswordAsync(User user,string password)
+        {
+            return await this.signInManager.CheckPasswordSignInAsync(
+                user,
+                password,
+                false);
+        }
+
+        //
+
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+        {
+            return await this.userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await this.userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<User> GetUserByIdAsync(string userId)
+        {
+            return await this.userManager.FindByIdAsync(userId);
+        }
+
+
+
+        //
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            //se deberia de agregar la ciudad
+            return await this.userManager.Users
+                .OrderBy(u => u.Nombre)
+                .ThenBy(u => u.ApellidoPaterno)
+                .ToListAsync();
+        }
+
+        public async Task RemoveUserFromRoleAsync(User user, string roleName)
+        {
+            await this.userManager.RemoveFromRoleAsync(user, roleName);
+        }
+
+        public async Task DeleteUserAsync(User user)
+        {
+            await this.userManager.DeleteAsync(user);
+        }
+
+
+
+
+
+
 
 
     }

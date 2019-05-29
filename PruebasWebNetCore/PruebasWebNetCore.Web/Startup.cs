@@ -14,6 +14,8 @@ namespace PruebasWebNetCore.Web
     using Data.Entities;
     using Helpers;
     using Data.Repositories;
+    using Microsoft.IdentityModel.Tokens;
+    using System.Text;
 
     public class Startup
     {
@@ -30,6 +32,8 @@ namespace PruebasWebNetCore.Web
             services.AddIdentity<User, IdentityRole>(cfg =>
              {
                  //para las opciones en la creacion de cuenta de usuario
+                 cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                 cfg.SignIn.RequireConfirmedEmail = true;
                  cfg.User.RequireUniqueEmail = true;
                  cfg.Password.RequireDigit = false;
                  cfg.Password.RequiredUniqueChars = 0;
@@ -37,13 +41,29 @@ namespace PruebasWebNetCore.Web
                  cfg.Password.RequireNonAlphanumeric = false;
                  cfg.Password.RequireUppercase = false;
                  cfg.Password.RequiredLength = 6;
-             }).AddEntityFrameworkStores<DataContext>();
+             })
+             .AddDefaultTokenProviders()
+             .AddEntityFrameworkStores<DataContext>();
+
+            services.AddAuthentication()
+            .AddCookie()
+            .AddJwtBearer(cfg =>
+            {
+                cfg.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidIssuer = this.Configuration["Tokens:Issuer"],
+                ValidAudience = this.Configuration["Tokens:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["Tokens:Key"]))
+                };
+            });
+
+
+
 
 
 
             services.AddDbContext<DataContext>(cfg =>
             {
-
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
 
             });
@@ -52,6 +72,7 @@ namespace PruebasWebNetCore.Web
             services.AddTransient<SeedDb>();
             //para los helpers
             services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IMailHelper, MailHelper>();
             //Para repositorios
             services.AddScoped<IColorRepository, ColorRepository>();
             services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
