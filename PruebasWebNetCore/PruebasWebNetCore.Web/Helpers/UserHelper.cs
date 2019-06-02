@@ -112,7 +112,6 @@ namespace PruebasWebNetCore.Web.Helpers
         //
         public async Task<List<User>> GetAllUsersAsync()
         {
-            //se deberia de agregar la ciudad
             return await this.userManager.Users
                 .OrderBy(u => u.Nombre)
                 .ThenBy(u => u.ApellidoPaterno)

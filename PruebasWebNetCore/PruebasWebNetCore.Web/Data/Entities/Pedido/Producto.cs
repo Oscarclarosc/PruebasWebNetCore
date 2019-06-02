@@ -38,9 +38,10 @@ namespace PruebasWebNetCore.Web.Data.Entities
         [Display(Name = "Estado")]
         public bool Estado { get; set; }
 
-        public int ColorId { get; set; }
 
+        public int ColorId { get; set; }
         public Color Color { get; set; }
+
 
     }
 }

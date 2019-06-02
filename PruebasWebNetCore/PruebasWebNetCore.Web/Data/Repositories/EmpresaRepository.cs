@@ -2,9 +2,11 @@
 
 namespace PruebasWebNetCore.Web.Data.Repositories
 {
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using PruebasWebNetCore.Web.Data.Entities;
     using PruebasWebNetCore.Web.Models;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -157,6 +159,25 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             .Where(c => c.Id == id)
             .FirstOrDefaultAsync();
         }
+
+        public IEnumerable<SelectListItem> GetComboEmpresas()
+        {
+            var list = this.context.Empresas.Select(p => new SelectListItem
+            {
+                Text = p.Nombre,
+                Value = p.Id.ToString()
+            }).ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una Empresa...)",
+                Value = "0"
+
+            });
+            return list;
+        }
+
+
 
     }
 }

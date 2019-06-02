@@ -22,7 +22,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
         public string ApellidoMaterno { get; set; }
 
         [Required]
-        [Display(Name = "Carnet")]
+        [Display(Name = "CI")]
         public int Ci { get; set; }
 
         [Required]

@@ -24,6 +24,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
         public decimal CantidadExtruir { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
         //Relacion uno a muchos

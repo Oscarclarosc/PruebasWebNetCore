@@ -130,6 +130,9 @@ namespace PruebasWebNetCore.Web.Controllers
                         Nombre = model.Nombre,
                         ApellidoPaterno = model.ApellidoPaterno,
                         ApellidoMaterno = model.ApellidoMaterno,
+                        Cargo = model.Cargo,
+                        Ci = model.Ci,
+                        PhoneNumber = model.Telefono,
                         Email = model.UserName,
                         UserName = model.UserName
                     };
@@ -358,7 +361,7 @@ namespace PruebasWebNetCore.Web.Controllers
             {
                 return NotFound();
             }
-
+            await this.userHelper.RemoveUserFromRoleAsync(user, user.Cargo);
             await this.userHelper.DeleteUserAsync(user);
             return this.RedirectToAction(nameof(Index));
         }

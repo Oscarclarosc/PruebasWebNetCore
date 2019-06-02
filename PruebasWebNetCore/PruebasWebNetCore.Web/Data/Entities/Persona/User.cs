@@ -34,10 +34,6 @@ namespace PruebasWebNetCore.Web.Data.Entities
         //[Required]
         public int Ci { get; set; }
 
-        //[Required]
-        [Display(Name = "Fecha de Nacimiento")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime FechaNacimiento { get; set; }
 
         [Display(Name = "Telefono")]
         public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }

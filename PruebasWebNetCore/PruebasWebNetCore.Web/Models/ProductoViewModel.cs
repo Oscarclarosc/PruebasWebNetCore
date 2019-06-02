@@ -41,7 +41,7 @@ namespace PruebasWebNetCore.Web.Models
         public bool Estado { get; set; }
 
         [Display(Name = "Color")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a country.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Seleccione un Color")]
         public int ColorId { get; set; }
 
         public IEnumerable<SelectListItem> Colores { get; set; }

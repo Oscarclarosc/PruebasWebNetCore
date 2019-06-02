@@ -1,4 +1,5 @@
-﻿using PruebasWebNetCore.Web.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PruebasWebNetCore.Web.Data.Entities;
 using PruebasWebNetCore.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,13 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             };
             this.context.MateriasPrimas.Update(materiaprima);
             await this.context.SaveChangesAsync();
+        }
+
+        public IQueryable GetMateriaPrimaWithColor()
+        {
+            return this.context.MateriasPrimas
+            .Include(d => d.Color)
+            .OrderBy(c => c.Nombre);
         }
 
 

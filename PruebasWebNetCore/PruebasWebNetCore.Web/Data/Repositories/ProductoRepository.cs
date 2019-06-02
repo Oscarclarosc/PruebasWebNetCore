@@ -2,7 +2,11 @@
 
 namespace PruebasWebNetCore.Web.Data.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
     using PruebasWebNetCore.Web.Data.Entities;
     using PruebasWebNetCore.Web.Models;
 
@@ -57,5 +61,30 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             this.context.Productos.Update(producto);
             await this.context.SaveChangesAsync();
         }
+
+        public IQueryable GetProductoWithColor()
+        {
+            return this.context.Productos
+            .Include(d => d.Color)
+            .OrderBy(c => c.Material);
+        }
+
+        public IEnumerable<SelectListItem> GetComboProductos()
+        {
+            var list = this.context.Productos.Select(p => new SelectListItem
+            {
+                Text = p.Codigo,
+                Value = p.Id.ToString()
+            }).ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione un Producto...)",
+                Value = "0"
+
+            });
+            return list;
+        }
+
     }
 }

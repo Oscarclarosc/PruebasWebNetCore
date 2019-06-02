@@ -1,13 +1,17 @@
-﻿
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace PruebasWebNetCore.Web.Data.Entities
+namespace PruebasWebNetCore.Web.Models
 {
-    using System.ComponentModel.DataAnnotations;
-
-    //TODO: falta hacer la implementacion en las vista de seleccionar un color
-    public class ImpresionPedido : IEntity
+    public class ImpresionPedidoViewModel
     {
-        public int Id { get; set; }
+        public int PedidoId { get; set; }
+
+        public int ImpresionId { get; set; }
 
         [MaxLength(30)]
         [Required(ErrorMessage = "Se necesita el texto de la impresion")]
@@ -23,12 +27,12 @@ namespace PruebasWebNetCore.Web.Data.Entities
         [Display(Name = "Dimension del Rodillo")]
         public decimal DimensionRodillo { get; set; }
 
-        //TODO: revisar los required en todas las entidades
-
+        [Display(Name = "Color")]
+        [Range(1, int.MaxValue, ErrorMessage = "Seleccione un Color")]
         public int ColorId { get; set; }
-        public Color Color { get; set; }
+
+        public IEnumerable<SelectListItem> Colores { get; set; }
 
 
-        public int PedidoId { get; set; }
     }
 }

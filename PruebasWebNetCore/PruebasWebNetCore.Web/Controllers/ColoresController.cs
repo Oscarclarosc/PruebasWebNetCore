@@ -12,7 +12,6 @@ namespace PruebasWebNetCore.Web.Controllers
     using System.IO;
     using System.Threading.Tasks;
 
-    [Authorize]
     public class ColoresController : Controller
     {
         private readonly IColorRepository colorRepository;

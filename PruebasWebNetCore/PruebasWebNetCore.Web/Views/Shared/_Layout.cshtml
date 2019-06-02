@@ -19,83 +19,83 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light ">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Control</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        @if (this.User.Identity.IsAuthenticated)
-                        {
-                            @if (this.User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Colores" asp-action="Index"> Colores</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Impresiones" asp-action="Index"> Impresion Pedido</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Productos" asp-action="Index"> Producto</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Account" asp-action="Register"> Registrar Nueva Cuenta</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Empleados" asp-action="Index"> Empleados</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Empresas" asp-action="Index"> Empresas</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark"  asp-area="" asp-controller="Countries" asp-action="Index"> Paises</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark"  asp-area="" asp-controller="MateriasPrimas" asp-action="Index"> Materia Prima</a>
-                                </li>
-                            }
-                            @if (this.User.IsInRole("Extrusor"))
-                            {
-                                <li class="nav-item">
-                                    <a  asp-area="" asp-controller="Colores" asp-action="Index"> Colores</a>
-                                </li>
-                            }
-                        }
 
-                    </ul>
-                </div>
-                <div>
-                    <ul class="nav navbar-nav navbar-right">
-                        @if (this.User.Identity.IsAuthenticated)
-                        {
-                            <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
-                            <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
-                        }
-                        else
-                        {
-                            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                        }
-                    </ul>
-                </div>
+
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Control de Produccion</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Empresas
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" asp-area="" asp-controller="Empresas" asp-action="Index">Gestionar Empresas</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Trabajadores
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" asp-area="" asp-controller="Empleados" asp-action="Index">Gestionar Trabajadores</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Index">Gestionar Cuentas</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Pedidos
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" asp-area="" asp-controller="Productos" asp-action="Index">Gestionar Productos</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Pedidos" asp-action="Index">Gestionar Pedidos</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Extras
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" asp-area="" asp-controller="MateriasPrimas" asp-action="Index">Gestionar Materias Primas</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Colores" asp-action="Index">Gestionar Colores</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Countries" asp-action="Index">Gestionar Ciudades</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                    }
+                </ul>
             </div>
         </nav>
     </header>
+
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+
 
     <footer class="border-top footer text-muted">
         <div class="container">

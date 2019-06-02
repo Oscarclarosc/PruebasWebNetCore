@@ -24,23 +24,45 @@ namespace PruebasWebNetCore.Web.Data
         public async Task SeedAsync()
         {
             await this.context.Database.EnsureCreatedAsync();
-            
+
+            //Usuarios
             //Aqui se agregan todos los roles que voy a tener en el programa
             //CheckRoleAsync revisa si el rol existe, si no es asi lo agrega a la tabla de roles
             await this.userHelper.CheckRoleAsync("Admin");
-            /*
-            await this.userHelper.CheckRoleAsync("Extrusor");
-            await this.userHelper.CheckRoleAsync("Impresor");
-            await this.userHelper.CheckRoleAsync("Cortador");
-            await this.userHelper.CheckRoleAsync("Empaquetador");
-            await this.userHelper.CheckRoleAsync("Jefe de Produccion");
-            await this.userHelper.CheckRoleAsync("Reciclador");*/
-
-
-            //TODO: agregar materias Primas por defecto
-
             var user = await this.userHelper.GetUserByEmailAsync("oscarclarosc@gmail.com");
 
+            if (user == null)
+            {
+                {
+                    user = new User
+                    {
+                        Nombre = "Oscar",
+                        ApellidoPaterno = "Claros",
+                        ApellidoMaterno = "Carrillo",
+                        Ci = 77651519,
+                        Cargo = "Administrador",
+                        Email = "oscarclarosc@gmail.com",
+                        UserName = "oscarclarosc@gmail.com",
+                        PhoneNumber = "7651519"
+                    };
+                }
+                var result = await this.userHelper.AddUSerAsync(user, "123456");
+                if (result != IdentityResult.Success)
+                {
+                    throw new InvalidOperationException("No se pudo crear el usuario en el Seeder");
+                }
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+                var token = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await this.userHelper.ConfirmEmailAsync(user, token);
+            }
+            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
+
+            if (!isInRole)
+            {
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+            }
+
+            //Paises y Ciudades
             if (!this.context.Countries.Any())
             {
                 var cities = new List<City>();
@@ -61,37 +83,6 @@ namespace PruebasWebNetCore.Web.Data
                 await this.context.SaveChangesAsync();
             }
 
-            //creo que esto estaba mal
-            if (user == null)
-            {
-                {
-                    user = new User
-                    {
-                        Nombre = "Oscar",
-                        ApellidoPaterno = "Claros",
-                        ApellidoMaterno = "Carrillo",
-                        Email = "oscarclarosc@gmail.com",
-                        UserName = "oscarclarosc@gmail.com",
-                        PhoneNumber = "7651519"
-                    };
-                }
-                var result = await this.userHelper.AddUSerAsync(user, "123456");
-                if (result != IdentityResult.Success)
-                {
-                    throw new InvalidOperationException("No se pudo crear el usuario en el Seeder");
-                }
-                await this.userHelper.AddUserToRoleAsync(user, "Admin");
-                var token = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
-                await this.userHelper.ConfirmEmailAsync(user, token);
-            }
-
-            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
-
-            if (!isInRole)
-            {
-                await this.userHelper.AddUserToRoleAsync(user, "Admin");
-            }
-
 
             if (!this.context.Colores.Any())
             {
@@ -99,9 +90,13 @@ namespace PruebasWebNetCore.Web.Data
                 this.AddColor("Amarillo", "#FFFF00");
                 this.AddColor("Verde", "#008000");
                 this.AddColor("Azul", "#0000FF");
+                this.AddColor("Incoloro", "#XXXXXX");
                 await this.context.SaveChangesAsync();
             }
+            
+
         }
+        
 
         private void AddColor(string nombre, string codigo)
         {

@@ -27,7 +27,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             {
                 return;
             }
-
+         
             var telefono = new Telefono
             {
                 Numero = model.Numero,
@@ -52,6 +52,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             return empleado.Id;
         }
 
+
         public async Task<Empleado> GetEmpleadoConTelefonoAsync(int id)
         {
             return await this.context.Empleados
@@ -59,6 +60,8 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             .Where(c => c.Id == id)
             .FirstOrDefaultAsync();
         }
+
+
 
         public IQueryable GetEmpleadosConTelefonos()
         {

@@ -21,8 +21,11 @@ namespace PruebasWebNetCore.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(this.materiaPrimaRepository.GetAll());
+            return View(this.materiaPrimaRepository.GetMateriaPrimaWithColor());
         }
+
+
+
 
         public async Task<IActionResult> Details(int? id)
         {

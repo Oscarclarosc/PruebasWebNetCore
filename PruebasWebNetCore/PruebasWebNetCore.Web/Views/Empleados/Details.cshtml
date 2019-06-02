@@ -4,12 +4,19 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Trabajador</h1>
 
 <div>
-    <h4>Empleado</h4>
     <hr />
     <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreCompleto)
+        </dt>
+        <dd class="col-sm-12">
+            @Html.DisplayFor(model => model.NombreCompleto)
+        </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Cargo)
         </dt>
@@ -28,15 +35,10 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.HoraEntrada)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImagenUrl)
-        </dt>
-        <dd class="col-sm-10">
-            @if (!string.IsNullOrEmpty(Model.ImagenUrl))
-            {
-                <img src="@Url.Content(Model.ImagenUrl)" alt="Image" style="width:150px;height:25px;max-width: 100%; " />
-            }
-        </dd>
+
+
+
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Estado)
         </dt>
@@ -44,12 +46,7 @@
             @Html.DisplayFor(model => model.Estado)
         </dd>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreCompleto)
-        </dt>
-        <dd class="col-sm-12">
-            @Html.DisplayFor(model => model.NombreCompleto)
-        </dd>
+
 
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Ci)
@@ -63,29 +60,47 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FechaNacimiento)
         </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImagenUrl)
+        </dt>
+        <dd class="col-sm-12">
+            @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+            {
+                <img src="@Url.Content(Model.ImagenUrl)" alt="Image" style="width:250px;height:250px;max-width: 100%; " />
+            }
+        </dd>
+
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-    <a asp-action="Index" class="btn btn-success">Back to List</a>
-    <a asp-action="AddTelefono" asp-route-id="@Model.Id" class="btn btn-info">Add telefono</a>
-    <a asp-action="AddDireccion" asp-route-id="@Model.Id" class="btn btn-info">Add direccion</a>
+
 </div>
 
+<p>
+    <a asp-area="" asp-controller="Account" asp-action="Register" class="btn btn-primary"> <i class="fa fa-plus"></i> Registrar Cuenta</a>
+</p>
+
+
+
+
+
+
 <h4>Telefonos</h4>
+
 @if (Model.Telefonos == null || Model.Telefonos.Count == 0)
 {
     <h5>No se han agregado telefonos</h5>
 }
 else
 {
-    <table class="table">
+    <table class="table table-hover table-responsive-xl table-striped">
         <thead>
             <tr>
                 <th>
+                    @Html.DisplayNameFor(model => model.Telefonos.FirstOrDefault().Extencion)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Telefonos.FirstOrDefault().Numero)
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -98,7 +113,7 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.Numero)
                     </td>
-                    <td id="@item.Id">
+                    <td id="@item.Id" align="right">
                         <a asp-action="EditTelefono" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
                         <a asp-action="DeleteTelefono" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
                     </td>
@@ -107,22 +122,29 @@ else
         </tbody>
     </table>
 }
+<p>
+    <a asp-action="AddTelefono" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fa fa-plus"></i> Add telefono</a>
+</p>
+
+
+
 
 <h4>Direcciones</h4>
+
 @if (Model.Direcciones == null || Model.Direcciones.Count == 0)
 {
     <h5>No se han agregado direcciones</h5>
 }
 else
 {
-    <table class="table">
+    <table class="table table-hover table-responsive-xl table-striped">
         <thead>
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Direcciones.FirstOrDefault().DireccionFisica)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Direcciones.FirstOrDefault().CityId)
+                    @Html.DisplayNameFor(model => model.Direcciones.FirstOrDefault().City)
                 </th>
                 <th></th>
             </tr>
@@ -130,19 +152,26 @@ else
         <tbody>
             @foreach (var item in Model.Direcciones.OrderBy(c => c.DireccionFisica))
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DireccionFisica)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CityId)
-                </td>
-                <td id="@item.Id">
-                    <a asp-action="EditDireccion" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                    <a asp-action="DeleteDireccion" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DireccionFisica)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City.Name)
+                    </td>
+                    <td id="@item.Id" align="right">
+                        <a asp-action="EditDireccion" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="DeleteDireccion" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 }
+<p>
+    <a asp-action="AddDireccion" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fa fa-plus"></i> Add direccion</a>
+</p>
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-chevron-circle-left"></i> Back to List</a>
+</p>

@@ -27,6 +27,13 @@ namespace PruebasWebNetCore.Web.Models
         [MinLength(6)]
         public string Password { get; set; }
 
+
+        [Required]
+        public string Telefono { get; set; }
+
+        [Required]
+        public int Ci { get; set; }
+
         [Required]
         [Display(Name = "Confirmar Contraseña")]
         [Compare("Password")]

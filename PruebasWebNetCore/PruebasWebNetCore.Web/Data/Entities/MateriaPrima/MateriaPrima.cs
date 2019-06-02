@@ -19,7 +19,6 @@ namespace PruebasWebNetCore.Web.Data.Entities
         [Required]
         public string Nombre { get; set; }
 
-        [Required]
         public string Observaciones { get; set; }
 
         [Required]
@@ -28,6 +27,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
         
         public int ColorId { get; set; }
 
+        [Required]
         public Color Color { get; set; }
 
     }

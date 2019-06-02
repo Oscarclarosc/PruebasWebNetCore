@@ -1,0 +1,118 @@
+﻿@model PruebasWebNetCore.Web.Data.Entities.Pedido
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EstadoPedido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EstadoPedido)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CantidadPedido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CantidadPedido)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CantidadExtruir)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CantidadExtruir)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Empresa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Empresa.Nombre)
+        </dd>
+    </dl>
+</div>
+@if(Model.Impresion == null) {
+<p>
+    <a asp-action="AddImpresion" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fa fa-plus"></i> Add Impresion</a>
+</p>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<h4>Producto</h4>
+
+    <table class="table table-hover table-responsive-xl table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Producto.Codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Producto.Material)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Producto.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Producto.Material)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+<h4>Impresion</h4>
+
+@if (Model.Impresion == null)
+{
+    <h5>No se ha agregado Impresion</h5>
+}
+else
+{
+    <table class="table table-hover table-responsive-xl table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Impresion.CarasImpresas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Impresion.Texto)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Impresion.CarasImpresas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Impresion.Texto)
+                </td>
+                <td id="@Model.Impresion.Id" align="right">
+                    <a asp-action="EditTelefono" asp-route-id="@Model.Impresion.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="DeleteTelefono" asp-route-id="@Model.Impresion.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

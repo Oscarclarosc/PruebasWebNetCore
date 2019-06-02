@@ -64,7 +64,10 @@ namespace PruebasWebNetCore.Web.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            //TODO: revisar esto
+
             //Relaciones 1 a 0..1
+            /*
             builder.Entity<Pedido>()
             .HasOne<ImpresionPedido>(s => s.Impresion)
             .WithOne(ad => ad.Pedido)
@@ -79,6 +82,7 @@ namespace PruebasWebNetCore.Web.Data
             .HasOne<ProductoTerminado>(s => s.ProductoTerminado)
             .WithOne(ad => ad.InformacionFase)
             .HasForeignKey<ProductoTerminado>(ad => ad.InformacionFaseId);
+            */
 
         }
 

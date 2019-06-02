@@ -34,18 +34,35 @@
             </div>
             <div class="form-group">
                 <label asp-for="Material" class="control-label"></label>
-                <input asp-for="Material" class="form-control" />
+                <select asp-for="Material" class="form-control">
+                    <option value="Baja Densidad">Baja Densidad</option>
+                    <option value="Alta Densidad">Alta Densidad</option>
+                </select>
                 <span asp-validation-for="Material" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TipoAcabado" class="control-label"></label>
-                <input asp-for="TipoAcabado" class="form-control" />
+
+                <select asp-for="TipoAcabado" class="form-control">
+                    <option value="Camiseta">Camiseta</option>
+                    <option value="Riñonera">Riñonera</option>
+                    <option value="Ponchillo">Ponchillo</option>
+                </select>
+
                 <span asp-validation-for="TipoAcabado" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TipoCorte" class="control-label"></label>
-                <input asp-for="TipoCorte" class="form-control" />
+                <select asp-for="TipoCorte" class="form-control">
+                    <option value="Lateral">Lateral</option>
+                    <option value="Frontal">Frontal</option>
+                </select>
                 <span asp-validation-for="TipoCorte" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ColorId" class="control-label"></label>
+                <select asp-for="ColorId" asp-items="Model.Colores" class="form-control"></select>
+                <span asp-validation-for="ColorId" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -53,18 +70,16 @@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="ColorId" class="control-label"></label>
-                <select asp-for="ColorId" asp-items="Model.Colores" class="form-control"></select>
-                <span asp-validation-for="ColorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+<p>
+    <a asp-action="AddImpresion" class="btn btn-primary"><i class="fa fa-plus"></i> Registrar Impresion</a>
+</p>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-chevron-circle-left"></i> Back to List</a>
 </div>
 

@@ -12,6 +12,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
 
         Task AddMateriaPrimaAsync(MateriaPrimaViewModel model);
         Task UpdateMateriaPrimaAsync(MateriaPrimaViewModel model);
+        IQueryable GetMateriaPrimaWithColor();
 
     }
 }
