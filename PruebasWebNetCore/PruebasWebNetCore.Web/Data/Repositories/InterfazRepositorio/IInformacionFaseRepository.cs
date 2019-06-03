@@ -17,6 +17,9 @@ namespace PruebasWebNetCore.Web.Data.Repositories
         //Desechos
         Task AddDesechoAsync(DesechoViewModel model);
         Task<Desecho> GetDesechoAsync(int id);
+        IQueryable GetDesechosAll();
+        Task CambiarEstadoEnAlmacen(Desecho desecho);
+
 
         //Producto Terminado
         Task AddProductoTerminadoAsync(ProductoTerminadoViewModel model);

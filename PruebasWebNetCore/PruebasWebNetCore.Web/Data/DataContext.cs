@@ -44,6 +44,8 @@ namespace PruebasWebNetCore.Web.Data
 
         public DbSet<City> Cities { get; set; }
 
+        public DbSet<AlmacenDesecho> AlmacenesDesechos { get; set; }
+
 
         //constructor
         public DataContext(DbContextOptions<DataContext> options) : base(options)

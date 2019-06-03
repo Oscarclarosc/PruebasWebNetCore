@@ -17,6 +17,9 @@ namespace PruebasWebNetCore.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
+        [Required]
+        public bool EnAlmacen { get; set; }
+
         public string Observaciones { get; set; }
 
         public int InformacionFaseId { get; set; }

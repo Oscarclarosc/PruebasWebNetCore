@@ -61,6 +61,29 @@ namespace PruebasWebNetCore.Web.Controllers
             return this.View(model);
         }
 
+        public async Task<IActionResult> CambiarEstadoDesecho(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var desecho = await this.informacionFaseRepository.GetDesechoAsync(id.Value);
+            if (desecho == null)
+            {
+                return NotFound();
+            }
+
+            await this.informacionFaseRepository.CambiarEstadoEnAlmacen(desecho);
+            return new NotFoundViewResult("DesechoEnAlmacen");
+        }
+
+        public IActionResult DesechosIndex()
+        {
+            return View(this.informacionFaseRepository.GetDesechosAll());
+        }
+
+
         //ProductoTerminado
         public async Task<IActionResult> AddProductoTerminado(int? id)
         {
@@ -96,6 +119,7 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
 
+        
 
 
 
@@ -224,6 +248,8 @@ namespace PruebasWebNetCore.Web.Controllers
             return new NotFoundViewResult("FaseFinalizada");
         }
 
+        
+
 
 
 
@@ -236,6 +262,13 @@ namespace PruebasWebNetCore.Web.Controllers
         {
             return this.View();
         }
+
+        public IActionResult DesechoEnAlmacen()
+        {
+            return this.View();
+        }
+
+
 
     }
 }

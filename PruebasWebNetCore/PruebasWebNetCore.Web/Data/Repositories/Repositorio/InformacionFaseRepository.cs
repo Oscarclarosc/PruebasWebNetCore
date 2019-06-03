@@ -26,6 +26,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             this.userHelper = userHelper;
         }
 
+
         public async Task AddInformacionFaseAsync(InformacionFaseViewModel model)
         {
             //TODO: validar que todo esto exista
@@ -85,7 +86,9 @@ namespace PruebasWebNetCore.Web.Data.Repositories
                 Cantidad = model.Cantidad,
                 Fecha = model.Fecha,
                 Observaciones = model.Observaciones,
-                InformacionFaseId = model.InformacionFaseId
+                InformacionFaseId = model.InformacionFaseId,
+                EnAlmacen = false
+                
             };
             this.context.Desechos.Update(desecho);
             await this.context.SaveChangesAsync();
@@ -94,6 +97,23 @@ namespace PruebasWebNetCore.Web.Data.Repositories
         public async Task<Desecho> GetDesechoAsync(int id)
         {
             return await this.context.Desechos.FindAsync(id);
+        }
+
+        //cambia estado del desecho a en almacen
+        public async Task CambiarEstadoEnAlmacen(Desecho desecho)
+        {
+            desecho.EnAlmacen = true;
+            this.context.Desechos.Update(desecho);
+            await this.context.SaveChangesAsync();
+        }
+
+
+        //Index de Desechos
+        public IQueryable GetDesechosAll()
+        {
+            return this.context.Desechos
+            .Where(a => a.EnAlmacen == false)
+            .OrderBy(c => c.Fecha);
         }
 
         //Producto Terminado
@@ -122,6 +142,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             return await this.context.ProductosTerminados.FindAsync(id);
         }
 
+        //
         public IQueryable GetInformacionFasePorPedido(int idpedido)
         {
             return this.context.InformacionesFases

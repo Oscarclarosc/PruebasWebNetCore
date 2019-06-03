@@ -1,12 +1,17 @@
 ﻿
-namespace PruebasWebNetCore.Web.Data.Entities
+
+namespace PruebasWebNetCore.Web.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class AlmacenDesecho : IEntity
+    public class AlmacenDesechoViewModel
     {
-        public int Id { get; set; }
+        public int AlmacenDesechoId { get; set; }
+
+        public string UserId { get; set; }
+
+        public int DesechoId { get; set; }
 
         [Required]
         public decimal Cantidad { get; set; }
@@ -15,14 +20,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
-        [Required]
-        public Empleado Empleado { get; set; }
-
-        [Required]
-        public Desecho Desecho { get; set; }
-
         public string Observaciones { get; set; }
 
-        
     }
 }

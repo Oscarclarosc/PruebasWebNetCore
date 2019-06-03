@@ -18,6 +18,9 @@ namespace PruebasWebNetCore.Web.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
+        [Required]
+        public bool EnAlmacen { get; set; }
+
         public string Observaciones { get; set; }
     }
 }

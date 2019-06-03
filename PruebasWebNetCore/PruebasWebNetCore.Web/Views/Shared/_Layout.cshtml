@@ -77,6 +77,14 @@
                             <a class="dropdown-item" asp-area="" asp-controller="Colores" asp-action="Index">Gestionar Colores</a>
                             <a class="dropdown-item" asp-area="" asp-controller="Countries" asp-action="Index">Gestionar Ciudades</a>
                         </div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Desechos
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" asp-area="" asp-controller="InformacionesFases" asp-action="DesechosIndex"> Desechos Pendientes</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="AlmacenesDesechos" asp-action="Index"> Inventario Desechos</a>
+                        </div>
                     </li>
                 </ul>
             </div>

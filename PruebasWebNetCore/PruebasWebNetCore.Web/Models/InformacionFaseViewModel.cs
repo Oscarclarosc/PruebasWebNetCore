@@ -14,7 +14,6 @@ namespace PruebasWebNetCore.Web.Models
 
         public string UserId { get; set; }
 
-
         [Required]
         [Display(Name = "Cantidad Entrada")]
         public decimal CantidaEntrada { get; set; }
