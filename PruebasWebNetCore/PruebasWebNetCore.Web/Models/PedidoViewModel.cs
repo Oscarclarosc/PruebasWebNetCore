@@ -14,10 +14,6 @@ namespace PruebasWebNetCore.Web.Models
 
         public int PedidoId { get; set; }
 
-        [Required]
-        [MaxLength(20)]
-        [Display(Name = "Estado del Pedido")]
-        public string EstadoPedido { get; set; }
 
         [Required]
         [Display(Name = "Cantidad del Pedido")]

@@ -1,0 +1,114 @@
+﻿@model PruebasWebNetCore.Web.Data.Entities.InformacionFase
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Informacion Fase</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CantidaEntrada)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CantidaEntrada)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fase)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fase)
+        </dd>
+    </dl>
+</div>
+
+
+
+@if (Model.Desecho != null)
+{
+    <h4>Desecho</h4>
+
+    <table class="table table-hover table-responsive-xl table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Desecho.Cantidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Desecho.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Desecho.Observaciones)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Desecho.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Desecho.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Desecho.Observaciones)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+
+
+@if (Model.ProductoTerminado != null)
+{
+    <h4>Producto  Terminado</h4>
+
+    <table class="table table-hover table-responsive-xl table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductoTerminado.Cantidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductoTerminado.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductoTerminado.Observaciones)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.ProductoTerminado.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.ProductoTerminado.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.ProductoTerminado.Observaciones)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-chevron-circle-left"></i> Back to List</a>
+</p>
+
+

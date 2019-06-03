@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalles de Pedido</h1>
 
 <div>
-    <h4>Pedido</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -42,53 +41,82 @@
         </dd>
     </dl>
 </div>
-@if(Model.Impresion == null) {
 <p>
-    <a asp-action="AddImpresion" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fa fa-plus"></i> Add Impresion</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="fa fa-pencil"></i> Editar Pedido</a>
+    <a asp-area="" asp-controller="InformacionesFases"  asp-action="InformacionFasePorPedido" asp-route-id="@Model.Id" class="btn btn-info"><i class="fa fa-pencil"></i> Fases Del Pedido</a>
 </p>
-}
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-
 
 <h4>Producto</h4>
 
-    <table class="table table-hover table-responsive-xl table-striped">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Producto.Codigo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Producto.Material)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => modelItem.Producto.Codigo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => modelItem.Producto.Material)
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<table class="table table-hover table-responsive-xl table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.Material)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.Espesor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.Ancho)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.Largo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.TipoAcabado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.TipoCorte)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.Color.Nombre)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Producto.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Producto.Material)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Producto.Espesor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Producto.Ancho)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Producto.Largo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Producto.TipoAcabado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Producto.TipoCorte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Producto.Color.Nombre)
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-
-
-<h4>Impresion</h4>
 
 @if (Model.Impresion == null)
 {
-    <h5>No se ha agregado Impresion</h5>
+    <p>
+        <a asp-action="AddImpresion" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fa fa-plus"></i> Add Impresion</a>
+    </p>
 }
 else
 {
+    <h4>Impresion</h4>
     <table class="table table-hover table-responsive-xl table-striped">
         <thead>
             <tr>
@@ -97,6 +125,12 @@ else
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Impresion.Texto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Impresion.Color.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Impresion.DimensionRodillo)
                 </th>
             </tr>
         </thead>
@@ -108,11 +142,21 @@ else
                 <td>
                     @Html.DisplayFor(modelItem => modelItem.Impresion.Texto)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Impresion.Color.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Impresion.DimensionRodillo)
+                </td>
                 <td id="@Model.Impresion.Id" align="right">
-                    <a asp-action="EditTelefono" asp-route-id="@Model.Impresion.Id" class="btn btn-warning">Edit</a>
-                    <a asp-action="DeleteTelefono" asp-route-id="@Model.Impresion.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                    <a asp-action="EditTelefono" asp-route-id="@Model.Impresion.Id" class="btn btn-warning"><i class="fa fa-pencil"></i> </a>
+                    <a asp-action="DeleteTelefono" asp-route-id="@Model.Impresion.Id" class="btn btn-danger" id="btnDelete"><i class="fa fa-trash"></i> </a>
                 </td>
             </tr>
         </tbody>
     </table>
 }
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-chevron-circle-left "> </i> Back to List</a>
+</p>

@@ -22,6 +22,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
         Task AddProductoTerminadoAsync(ProductoTerminadoViewModel model);
         Task<ProductoTerminado> GetProductoTerminadoAsync(int id);
 
-
+        IQueryable GetInformacionFasePorPedido(int idpedido);
+        Task<InformacionFase> GetInformacionFaseDetalle(int id);
     }
 }

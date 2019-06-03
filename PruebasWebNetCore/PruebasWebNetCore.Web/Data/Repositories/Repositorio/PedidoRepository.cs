@@ -63,8 +63,8 @@ namespace PruebasWebNetCore.Web.Data.Repositories
         {
             return await this.context.Pedidos
             .Include(e => e.Empresa)
-            .Include(p => p.Producto)
-            .Include(c => c.Impresion)
+            .Include(p => p.Producto.Color)
+            .Include(c => c.Impresion.Color)
             .Where(c => c.Id == id)
             .FirstOrDefaultAsync();
         }
@@ -99,7 +99,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
                 CantidadExtruir = model.CantidadExtruir,
                 CantidadPedido = model.CantidadExtruir,
                 //TODO: poner para que sea extrusion por defecto
-                EstadoPedido = model.EstadoPedido,
+                EstadoPedido = "Extrusion",
                 Fecha = model.Fecha,
                 Empresa = empresa,
                 Producto = producto,

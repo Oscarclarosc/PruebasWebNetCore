@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Empresa</h1>
 
 <div>
-    <h4>Empresa</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -18,17 +17,17 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-    <a asp-action="AddTelefono" asp-route-id="@Model.Id" class="btn btn-info">Add telefono</a>
-    <a asp-action="AddDireccion" asp-route-id="@Model.Id" class="btn btn-info">Add direccion</a>
-</div>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="fa fa-pencil"></i> Editar Empresa</a>
+</p>
+
 
 <h4>Telefonos</h4>
 @if (Model.Telefonos == null || Model.Telefonos.Count == 0)
 {
-    <h5>No se han agregado telefonos</h5>
+    <p>
+        <a asp-action="AddTelefono" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fa fa-plus"></i> Add telefono</a>
+    </p>
 }
 else
 {
@@ -64,7 +63,9 @@ else
 <h4>Direcciones</h4>
 @if (Model.Direcciones == null || Model.Direcciones.Count == 0)
 {
-    <h5>No se han agregado direcciones</h5>
+    <p>
+        <a asp-action="AddDireccion" asp-route-id="@Model.Id" class="btn btn-primary"> <i class="fa fa-plus"></i> Add direccion</a>
+    </p>
 }
 else
 {
@@ -93,3 +94,7 @@ else
         </tbody>
     </table>
 }
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa fa-chevron-circle-left"></i>Back to List</a>
+</p>

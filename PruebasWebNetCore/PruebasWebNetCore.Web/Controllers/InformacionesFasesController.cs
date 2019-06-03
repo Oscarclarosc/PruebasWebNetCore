@@ -160,6 +160,45 @@ namespace PruebasWebNetCore.Web.Controllers
             
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var informacion = await this.informacionFaseRepository.GetInformacionFaseDetalle(id.Value);
+            if (informacion == null)
+            {
+                return NotFound();
+            }
+
+            return View(informacion);
+
+        }
+
+
+
+
+        public async Task<IActionResult> InformacionFasePorPedido(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pedido = await this.pedidoRepository.GetByIdAsync(id.Value);
+            if (pedido == null)
+            {
+                return NotFound();
+            }
+
+            return View(this.informacionFaseRepository.GetInformacionFasePorPedido(pedido.Id));
+
+        }
+
         //cambia el estado del pedido a la proxima fase y el usuario a disponible
         public async Task<IActionResult> CambiarEstadoPedidoUsuario(int? id)
         {

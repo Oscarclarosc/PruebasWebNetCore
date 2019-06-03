@@ -60,6 +60,16 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             .LastOrDefaultAsync();
         }
 
+        public async Task<InformacionFase> GetInformacionFaseDetalle(int id)
+        {
+            return await this.context.InformacionesFases
+            .Include(c => c.Pedido)
+            .Include(d => d.Desecho)
+            .Include(pt => pt.ProductoTerminado)
+            .Where(c => c.Id == id)
+            .FirstOrDefaultAsync();
+        }
+
         //Desecho
 
         public async Task AddDesechoAsync(DesechoViewModel model)
@@ -111,6 +121,16 @@ namespace PruebasWebNetCore.Web.Data.Repositories
         {
             return await this.context.ProductosTerminados.FindAsync(id);
         }
+
+        public IQueryable GetInformacionFasePorPedido(int idpedido)
+        {
+            return this.context.InformacionesFases
+                .Include(e => e.Empleado)
+                .Where(pe => pe.Pedido.Id == idpedido)
+                .OrderBy(pe => pe.Fecha);
+        }
+
+
 
     }
 }
