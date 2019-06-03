@@ -14,12 +14,12 @@ namespace PruebasWebNetCore.Web.Data.Entities
         public decimal Cantidad { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
         public string Observaciones { get; set; }
 
         public int InformacionFaseId { get; set; }
-        public InformacionFase InformacionFase { get; set; }
 
     }
 }

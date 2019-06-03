@@ -45,11 +45,6 @@ namespace PruebasWebNetCore.Web.Data.Repositories
 
             this.context.Impresiones.Update(impresion);
             await this.context.SaveChangesAsync();
-            /*
-            pedido.Impresion = impresion;
-            this.context.Pedidos.Update(pedido);
-            await this.context.SaveChangesAsync();
-            */
         }
 
         public async Task<ImpresionPedido> GetImpresionAsync(int id)
@@ -103,11 +98,36 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             {
                 CantidadExtruir = model.CantidadExtruir,
                 CantidadPedido = model.CantidadExtruir,
+                //TODO: poner para que sea extrusion por defecto
                 EstadoPedido = model.EstadoPedido,
                 Fecha = model.Fecha,
                 Empresa = empresa,
                 Producto = producto,
             };
+            this.context.Pedidos.Update(pedido);
+            await this.context.SaveChangesAsync();
+
+        }
+
+
+        public async Task CabiarEstadoAsync(Pedido pedido)
+        {
+            if (pedido.EstadoPedido == "Extrusion")
+            {
+                pedido.EstadoPedido = "Impresion";
+            }
+            else if (pedido.EstadoPedido == "Impresion")
+            {
+                pedido.EstadoPedido = "Cortado";
+            }
+            else if (pedido.EstadoPedido == "Cortado")
+            {
+                pedido.EstadoPedido = "Empaquetado";
+            }
+            else if (pedido.EstadoPedido == "Empaquetado")
+            {
+                pedido.EstadoPedido = "Finalizado";
+            }
             this.context.Pedidos.Update(pedido);
             await this.context.SaveChangesAsync();
 
@@ -119,6 +139,15 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             return this.context.Pedidos
                 .Include(e => e.Empresa)
                 .Include(p => p.Producto)
+                .OrderBy(pe => pe.Fecha);
+        }
+
+
+        public IQueryable GetPedidoPorFase(User user) {
+            return this.context.Pedidos
+                .Include(e => e.Empresa)
+                .Include(p => p.Producto)
+                .Where(pe => pe.EstadoPedido == user.Cargo)
                 .OrderBy(pe => pe.Fecha);
         }
     }

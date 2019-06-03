@@ -168,6 +168,12 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             .FirstOrDefaultAsync();
         }
 
+        public async Task<Empleado> GetEmpleadoPorCarnet(int carnet)
+        {
+            return await this.context.Empleados
+            .Where(c => c.Ci == carnet)
+            .FirstOrDefaultAsync();
+        }
 
 
     }

@@ -1,0 +1,136 @@
+﻿@model PruebasWebNetCore.Web.Data.Entities.InformacionFase
+
+@{
+    ViewData["Title"] = "InformacionFaseActual";
+}
+
+<h1>InformacionFaseActual</h1>
+
+<div>
+    <h4>InformacionFase</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CantidaEntrada)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CantidaEntrada)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fase)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fase)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+
+@if (Model.Desecho == null)
+{
+    <p>
+        <a asp-action="AddDesecho" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fa fa-plus"></i> Add Desecho</a>
+    </p>
+}
+else
+{
+    <h4>Desecho</h4>
+
+    <table class="table table-hover table-responsive-xl table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Desecho.Cantidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Desecho.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Desecho.Observaciones)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Desecho.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Desecho.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Desecho.Observaciones)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+
+
+@if (Model.Desecho != null && Model.ProductoTerminado == null)
+{
+    <p>
+        <a asp-action="AddProductoTerminado" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fa fa-plus"></i> Add ProductoTerminado</a>
+    </p>
+}
+@if(Model.Desecho !=null && Model.ProductoTerminado !=null)
+{
+    <h4>Producto  Terminado</h4>
+
+    <table class="table table-hover table-responsive-xl table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductoTerminado.Cantidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductoTerminado.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductoTerminado.Observaciones)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.ProductoTerminado.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.ProductoTerminado.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.ProductoTerminado.Observaciones)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@if (Model.Desecho != null && Model.ProductoTerminado != null)
+{
+    <p>
+        <a asp-action="CambiarEstadoPedidoUsuario" asp-route-id="@Model.Pedido.Id" class="btn btn-primary"><i class="fa fa-plus"></i> Finalizar Fase</a>
+    </p>
+}
+

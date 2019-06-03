@@ -41,6 +41,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.EmailConfirmed)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Disponible)
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -68,6 +71,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Disponible)
                             </td>
                             <td>
                                 <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>

@@ -14,13 +14,15 @@ namespace PruebasWebNetCore.Web.Controllers
         private readonly IEmpresaRepository empresaRepository;
         private readonly IProductoRepository productoRepository;
         private readonly IColorRepository colorRepository;
+        private readonly IUserHelper userHelper;
 
-        public PedidosController(IPedidoRepository pedidoRepository, IEmpresaRepository empresaRepository, IProductoRepository productoRepository, IColorRepository colorRepository)
+        public PedidosController(IPedidoRepository pedidoRepository, IEmpresaRepository empresaRepository, IProductoRepository productoRepository, IColorRepository colorRepository, IUserHelper userHelper)
         {
             this.pedidoRepository = pedidoRepository;
             this.empresaRepository = empresaRepository;
             this.productoRepository = productoRepository;
             this.colorRepository = colorRepository;
+            this.userHelper = userHelper;
         }
 
 
@@ -57,9 +59,25 @@ namespace PruebasWebNetCore.Web.Controllers
             return this.View(model);
         }
 
+        //para mostrar los pedidos por fase
+        public async Task<IActionResult> PedidosDisponibles()
+        {
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
 
+            if (user == null)
+            {
+                return new NotFoundViewResult("PedidoNotFound");
+            }
 
-
+            if (user.Disponible==true) {
+                return View(this.pedidoRepository.GetPedidoPorFase(user));
+            }
+            else
+            {
+                //TODO: cambiar esto para que muestre pedido en proceso
+                return new NotFoundViewResult("PedidoEnProceso");
+            }
+        }
 
 
         public IActionResult Index()
@@ -112,6 +130,11 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
         public IActionResult PedidoNotFound()
+        {
+            return this.View();
+        }
+
+        public IActionResult PedidoEnProceso()
         {
             return this.View();
         }

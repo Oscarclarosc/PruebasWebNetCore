@@ -31,6 +31,14 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
 
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Pedidos" asp-action="PedidosDisponibles">Pedidos Disponibles</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="InformacionesFases" asp-action="InformacionFaseActual">Informacion Fase Actual</a>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Empresas
@@ -76,12 +84,12 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
-                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                        <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
+                        <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="Logout">  Salir</a></li>
                     }
                     else
                     {
-                        <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="Login"> Ingresar</a></li>
                     }
                 </ul>
             </div>

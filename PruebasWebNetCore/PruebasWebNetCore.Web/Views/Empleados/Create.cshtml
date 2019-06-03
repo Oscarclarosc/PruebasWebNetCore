@@ -40,11 +40,13 @@
             <div class="form-group">
                 <label asp-for="Cargo" class="control-label"></label>
                 <select asp-for="Cargo" class="form-control">
-                    <option value="Extrusor">Extrusor</option>
-                    <option value="Impresor">Impresor</option>
-                    <option value="Cortador">Cortador</option>
-                    <option value="Empaquetador">Empaquetador</option>
-                    <option value="Reciclador">Reciclador</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="JefeProduccion">Jefe de Produccion</option>
+                    <option value="Extrusion">Extrusion</option>
+                    <option value="Impresion">Impresion</option>
+                    <option value="Cortado">Cortado</option>
+                    <option value="Empaquetado">Empaquetado</option>
+                    <option value="Reciclado">Reciclado</option>
                 </select>
                 <span asp-validation-for="Cargo" class="text-danger"></span>
             </div>

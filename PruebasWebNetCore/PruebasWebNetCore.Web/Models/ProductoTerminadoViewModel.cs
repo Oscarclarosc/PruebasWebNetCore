@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace PruebasWebNetCore.Web.Data.Entities
+﻿
+namespace PruebasWebNetCore.Web.Models
 {
-    public class Desecho:IEntity
-    {
-        public int Id { get; set; }
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
 
+    public class ProductoTerminadoViewModel
+    {
         [Required]
         public decimal Cantidad { get; set; }
 
@@ -20,6 +19,9 @@ namespace PruebasWebNetCore.Web.Data.Entities
         public string Observaciones { get; set; }
 
         public int InformacionFaseId { get; set; }
+
+        public int ProductoTerminadoId { get; set; }
+
 
     }
 }

@@ -28,7 +28,7 @@ namespace PruebasWebNetCore.Web.Data
             //Usuarios
             //Aqui se agregan todos los roles que voy a tener en el programa
             //CheckRoleAsync revisa si el rol existe, si no es asi lo agrega a la tabla de roles
-            await this.userHelper.CheckRoleAsync("Admin");
+            await this.userHelper.CheckRoleAsync("Administrador");
             var user = await this.userHelper.GetUserByEmailAsync("oscarclarosc@gmail.com");
 
             if (user == null)
@@ -39,11 +39,13 @@ namespace PruebasWebNetCore.Web.Data
                         Nombre = "Oscar",
                         ApellidoPaterno = "Claros",
                         ApellidoMaterno = "Carrillo",
-                        Ci = 77651519,
+                        Ci = 11337793,
                         Cargo = "Administrador",
                         Email = "oscarclarosc@gmail.com",
                         UserName = "oscarclarosc@gmail.com",
-                        PhoneNumber = "7651519"
+                        PhoneNumber = "7651519",
+                        Disponible = true,
+
                     };
                 }
                 var result = await this.userHelper.AddUSerAsync(user, "123456");
@@ -51,15 +53,15 @@ namespace PruebasWebNetCore.Web.Data
                 {
                     throw new InvalidOperationException("No se pudo crear el usuario en el Seeder");
                 }
-                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+                await this.userHelper.AddUserToRoleAsync(user, "Administrador");
                 var token = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
                 await this.userHelper.ConfirmEmailAsync(user, token);
             }
-            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
+            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Administrador");
 
             if (!isInRole)
             {
-                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+                await this.userHelper.AddUserToRoleAsync(user, "Administrador");
             }
 
             //Paises y Ciudades

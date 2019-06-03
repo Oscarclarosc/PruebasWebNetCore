@@ -50,6 +50,9 @@ namespace PruebasWebNetCore.Web.Helpers
         Task RemoveUserFromRoleAsync(User user, string roleName);
 
         Task DeleteUserAsync(User user);
+        //
+        Task CambiarEstadoDisponible(User user);
+        Task CambiarEstadoNoDisponible(User user);
 
 
     }

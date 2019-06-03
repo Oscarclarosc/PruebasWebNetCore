@@ -38,5 +38,8 @@ namespace PruebasWebNetCore.Web.Data.Repositories
 
         Task<Empleado> GetEmpleadoConDireccionYTelefonoAsync(int id);
 
+
+        Task<Empleado> GetEmpleadoPorCarnet(int carnet);
+
     }
 }

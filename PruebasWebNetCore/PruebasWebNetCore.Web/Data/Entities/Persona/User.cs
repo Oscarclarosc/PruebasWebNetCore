@@ -31,20 +31,24 @@ namespace PruebasWebNetCore.Web.Data.Entities
 
 
         [Display(Name = "Carnet")]
-        //[Required]
+        [Required]
         public int Ci { get; set; }
-
 
         [Display(Name = "Telefono")]
         public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
 
         [Display(Name = "Cargo")]
-       // [Required]
+        [Required]
         public string Cargo { get; set; }
 
         [NotMapped]
         [Display(Name ="Es Admin?")]
         public bool IsAdmin { get; set; }
+
+        [Display(Name = "Disponible?")]
+        [Required]
+        public bool Disponible { get; set; }
+
 
         //public City City { get; set; }
 

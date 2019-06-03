@@ -134,7 +134,8 @@ namespace PruebasWebNetCore.Web.Controllers
                         Ci = model.Ci,
                         PhoneNumber = model.Telefono,
                         Email = model.UserName,
-                        UserName = model.UserName
+                        UserName = model.UserName,
+                        Disponible = true,
                     };
 
                     var result = await this.userHelper.AddUSerAsync(user, model.Password);
@@ -165,6 +166,8 @@ namespace PruebasWebNetCore.Web.Controllers
                         await this.userHelper.AddUserToRoleAsync(user, model.Cargo);
                     }
 
+                    /*
+                     * Esto hacia que se logee automaticamente cuando se creaba el usuario
                     var loginViewModel = new LoginViewModel
                     {
                         Password = model.Password,
@@ -180,7 +183,7 @@ namespace PruebasWebNetCore.Web.Controllers
                         return this.RedirectToAction("Index", "Home");
                     }
 
-                    this.ModelState.AddModelError(string.Empty, "The user couldn't be login.");
+                    this.ModelState.AddModelError(string.Empty, "The user couldn't be login.");*/
                     return this.View(model);
                 }
 

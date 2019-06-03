@@ -14,7 +14,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="EstadoPedido" class="control-label"></label>
-                <input asp-for="EstadoPedido" class="form-control" />
+                <select asp-for="EstadoPedido" class="form-control">
+                    <option value="Extrusion">Extrusion</option>
+                    <option value="Impresion">Impresion</option>
+                    <option value="Cortado">Cortado</option>
+                    <option value="Empaquetado">Empaquetado</option>
+                    <option value="Reciclado">Reciclado</option>
+                </select>
                 <span asp-validation-for="EstadoPedido" class="text-danger"></span>
             </div>
             <div class="form-group">

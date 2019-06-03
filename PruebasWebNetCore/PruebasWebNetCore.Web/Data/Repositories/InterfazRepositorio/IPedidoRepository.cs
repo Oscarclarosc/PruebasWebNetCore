@@ -30,5 +30,10 @@ namespace PruebasWebNetCore.Web.Data.Repositories
         Task AddPedidoAsync(PedidoViewModel model);
         IQueryable GetPedidoWithAll();
 
+        IQueryable GetPedidoPorFase(User user);
+
+        //
+        Task CabiarEstadoAsync(Pedido pedido);
+
     }
 }
