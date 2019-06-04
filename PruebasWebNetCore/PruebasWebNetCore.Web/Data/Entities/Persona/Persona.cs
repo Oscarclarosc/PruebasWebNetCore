@@ -4,6 +4,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Persona:IEntity
     {

@@ -119,10 +119,6 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
 
-        
-
-
-
 
         //GET
         public async Task<IActionResult> Create(int? id)
@@ -169,12 +165,8 @@ namespace PruebasWebNetCore.Web.Controllers
             var user = await this.userHelper.GetUserByEmailAsync(User.Identity.Name);
             var informacion = await this.informacionFaseRepository.GetInformacionFasePorEmpleadoAsync(user);
 
-            if(informacion == null)
-            {
-                return NotFound();
-            }
 
-            if (user.Disponible == false) {
+            if (user.Disponible == false && informacion !=null) {
                 return View(informacion);
             }
             else
@@ -201,8 +193,6 @@ namespace PruebasWebNetCore.Web.Controllers
             return View(informacion);
 
         }
-
-
 
 
         public async Task<IActionResult> InformacionFasePorPedido(int? id)
@@ -247,10 +237,6 @@ namespace PruebasWebNetCore.Web.Controllers
             await this.userHelper.CambiarEstadoDisponible(user);
             return new NotFoundViewResult("FaseFinalizada");
         }
-
-        
-
-
 
 
         public IActionResult NoEnProceso()

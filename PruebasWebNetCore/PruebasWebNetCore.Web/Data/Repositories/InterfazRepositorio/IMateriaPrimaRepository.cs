@@ -1,4 +1,5 @@
-﻿using PruebasWebNetCore.Web.Data.Entities;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using PruebasWebNetCore.Web.Data.Entities;
 using PruebasWebNetCore.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,6 @@ namespace PruebasWebNetCore.Web.Data.Repositories
         Task AddMateriaPrimaAsync(MateriaPrimaViewModel model);
         Task UpdateMateriaPrimaAsync(MateriaPrimaViewModel model);
         IQueryable GetMateriaPrimaWithColor();
-
+        IEnumerable<SelectListItem> GetComboMateriasPrimas();
     }
 }

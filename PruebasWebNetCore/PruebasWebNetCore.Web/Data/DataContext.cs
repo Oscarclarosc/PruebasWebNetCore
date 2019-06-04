@@ -46,6 +46,8 @@ namespace PruebasWebNetCore.Web.Data
 
         public DbSet<AlmacenDesecho> AlmacenesDesechos { get; set; }
 
+        public DbSet<AlmacenMateriaPrima> AlmacenesMateriasPrimas { get; set; }
+
 
         //constructor
         public DataContext(DbContextOptions<DataContext> options) : base(options)
@@ -65,6 +67,14 @@ namespace PruebasWebNetCore.Web.Data
             {
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            
+            builder.Entity<AlmacenMateriaPrima>()
+                .HasIndex(p => p.MateriaPrimaId)
+                .IsUnique(true); 
+
+
+
 
             //TODO: revisar esto
 

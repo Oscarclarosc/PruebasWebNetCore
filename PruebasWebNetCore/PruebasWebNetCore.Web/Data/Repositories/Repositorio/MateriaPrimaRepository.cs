@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PruebasWebNetCore.Web.Data.Entities;
 using PruebasWebNetCore.Web.Models;
 using System;
@@ -61,6 +62,22 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             .OrderBy(c => c.Nombre);
         }
 
+        public IEnumerable<SelectListItem> GetComboMateriasPrimas()
+        {
+            var list = this.context.MateriasPrimas.Select(p => new SelectListItem
+            {
+                Text = p.Clase + " "+ p.Nombre ,
+                Value = p.Id.ToString()
+            }).ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Seleccione una Materia Prima...)",
+                Value = "0"
+
+            });
+            return list;
+        }
 
     }
 }

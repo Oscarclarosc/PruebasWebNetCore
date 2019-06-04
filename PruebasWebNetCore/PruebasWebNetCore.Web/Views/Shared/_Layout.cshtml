@@ -28,79 +28,98 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Pedidos" asp-action="PedidosDisponibles">Pedidos Disponibles</a>
-                    </li>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="InformacionesFases" asp-action="InformacionFaseActual">Informacion Fase Actual</a>
-                    </li>
+                            @if (this.User.IsInRole("Administrador"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Empresas
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Empresas" asp-action="Index">Gestionar Empresas</a>
+                                    </div>
+                                </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Empresas
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-area="" asp-controller="Empresas" asp-action="Index">Gestionar Empresas</a>
-                        </div>
-                    </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Trabajadores
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Empleados" asp-action="Index">Gestionar Trabajadores</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Index">Gestionar Cuentas</a>
+                                    </div>
+                                </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Trabajadores
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-area="" asp-controller="Empleados" asp-action="Index">Gestionar Trabajadores</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Index">Gestionar Cuentas</a>
-                        </div>
-                    </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Pedidos
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Productos" asp-action="Index">Gestionar Productos</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Pedidos" asp-action="Index">Gestionar Pedidos</a>
+                                    </div>
+                                </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Pedidos
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-area="" asp-controller="Productos" asp-action="Index">Gestionar Productos</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Pedidos" asp-action="Index">Gestionar Pedidos</a>
-                        </div>
-                    </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Extras
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" asp-area="" asp-controller="MateriasPrimas" asp-action="Index">Gestionar Materias Primas</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Colores" asp-action="Index">Gestionar Colores</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Countries" asp-action="Index">Gestionar Ciudades</a>
+                                    </div>
+                                </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Extras
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-area="" asp-controller="MateriasPrimas" asp-action="Index">Gestionar Materias Primas</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Colores" asp-action="Index">Gestionar Colores</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Countries" asp-action="Index">Gestionar Ciudades</a>
-                        </div>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Desechos
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-area="" asp-controller="InformacionesFases" asp-action="DesechosIndex"> Desechos Pendientes</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="AlmacenesDesechos" asp-action="Index"> Inventario Desechos</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <ul class="nav navbar-nav navbar-right">
-                    @if (this.User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
-                        <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="Logout">  Salir</a></li>
-                    }
-                    else
-                    {
-                        <li><a asp-area="" asp-controller="Account" asp-action="Login"> Ingresar</a></li>
-                    }
-                </ul>
-            </div>
+                            }else
+                            if (this.User.IsInRole("Extrusion") || this.User.IsInRole("Impresion")||this.User.IsInRole("Cortado") || this.User.IsInRole("Empaquetado"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Pedidos" asp-action="PedidosDisponibles">Pedidos Disponibles</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="InformacionesFases" asp-action="InformacionFaseActual">Informacion Fase Actual</a>
+                                </li>
+                            }else
+                            if (this.User.IsInRole("EncargadoAlmacenDesechos"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Desechos
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" asp-area="" asp-controller="InformacionesFases" asp-action="DesechosIndex"> Desechos Pendientes</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="AlmacenesDesechos" asp-action="Index"> Inventario Desechos</a>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                }
+
+                <div>
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
+                            <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="Logout">  Salir</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Account" asp-action="Login"> Ingresar</a></li>
+                        }
+                    </ul>
+                </div>
+
+           
+           
         </nav>
     </header>
 

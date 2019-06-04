@@ -10,7 +10,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
     {
 
         [Required]
-        [MaxLength(15, ErrorMessage = " El campo no puede tener mas caracteres")]
+        [MaxLength(50, ErrorMessage = " El campo no puede tener mas caracteres")]
         public string Cargo { get; set; }
 
         [Required]
