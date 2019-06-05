@@ -32,9 +32,9 @@ namespace PruebasWebNetCore.Web
             services.AddIdentity<User, IdentityRole>(cfg =>
              {
                  //para las opciones en la creacion de cuenta de usuario
-                 cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
-                 cfg.SignIn.RequireConfirmedEmail = true;
-                 cfg.User.RequireUniqueEmail = true;
+                 //cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                 //cfg.SignIn.RequireConfirmedEmail = true;
+                 //cfg.User.RequireUniqueEmail = true;
                  cfg.Password.RequireDigit = false;
                  cfg.Password.RequiredUniqueChars = 0;
                  cfg.Password.RequireLowercase = false;

@@ -1,6 +1,6 @@
 ﻿
 
-namespace PruebasWebNetCore.Web.Data.Repositories
+namespace PruebasWebNetCore.Web.Data.Repositories  
 {
     using Microsoft.EntityFrameworkCore;
     using PruebasWebNetCore.Web.Data.Entities;

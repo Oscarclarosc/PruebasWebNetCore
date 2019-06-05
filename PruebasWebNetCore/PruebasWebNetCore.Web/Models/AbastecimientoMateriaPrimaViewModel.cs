@@ -28,7 +28,7 @@ namespace PruebasWebNetCore.Web.Models
 
         public IEnumerable<SelectListItem> MateriasPrimas { get; set; }
 
-        [Display(Name = "Materia Prima")]
+        [Display(Name = " Proveedor")]
         [Range(1, int.MaxValue, ErrorMessage = "Seleccione una Materia Prima")]
         public int ProveedorId { get; set; }
 

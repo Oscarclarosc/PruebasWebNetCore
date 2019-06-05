@@ -145,6 +145,7 @@ namespace PruebasWebNetCore.Web.Controllers
                         return this.View(model);
                     }
                     //lo del token aqui
+                    /*
                     var myToken = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
                     var tokenLink = this.Url.Action("ConfirmEmail", "Account", new
                     {
@@ -155,7 +156,7 @@ namespace PruebasWebNetCore.Web.Controllers
                     this.mailHelper.SendMail(model.UserName, "Email confirmation", $"<h1>Email Confirmation</h1>" +
                     $"To allow the user, " +
                     $"plase click in this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
-                    this.ViewBag.Message = "The instructions to allow your user has been sent to email.";
+                    this.ViewBag.Message = "The instructions to allow your user has been sent to email.";*/
 
                     await this.userHelper.CheckRoleAsync(model.Cargo);
                     await this.userHelper.AddUserToRoleAsync(user, model.Cargo);
@@ -166,8 +167,7 @@ namespace PruebasWebNetCore.Web.Controllers
                         await this.userHelper.AddUserToRoleAsync(user, model.Cargo);
                     }
 
-                    /*
-                     * Esto hacia que se logee automaticamente cuando se creaba el usuario
+                    //Esto hacia que se logee automaticamente cuando se creaba el usuario
                     var loginViewModel = new LoginViewModel
                     {
                         Password = model.Password,
@@ -183,7 +183,7 @@ namespace PruebasWebNetCore.Web.Controllers
                         return this.RedirectToAction("Index", "Home");
                     }
 
-                    this.ModelState.AddModelError(string.Empty, "The user couldn't be login.");*/
+                    this.ModelState.AddModelError(string.Empty, "The user couldn't be login.");
                     return this.View(model);
                 }
 

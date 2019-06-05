@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{A2454D05-2BCE-4F65-9868-272DF8DA42F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{9839822B-F8E4-4951-880D-41ED1D8661F0}"
+	ProjectSection(SolutionItems) = preProject
+		PruebasWebNetCore.Web\Startup.cs = PruebasWebNetCore.Web\Startup.cs
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PruebasWebNetCore.Web", "PruebasWebNetCore.Web\PruebasWebNetCore.Web.csproj", "{3DACCB4F-B0D6-4208-93C7-BD0775E73F22}"
 EndProject
@@ -19,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebasWebNetCore.UIForms.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebasWebNetCore.UIForms.iOS", "PruebasWebNetCore.UIForms\PruebasWebNetCore.UIForms.iOS\PruebasWebNetCore.UIForms.iOS.csproj", "{EED32262-BE3A-41B4-BEE5-880DA0413A3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebasWebNetCore.UIForms", "PruebasWebNetCore.UIForms\PruebasWebNetCore.UIForms\PruebasWebNetCore.UIForms.csproj", "{FF9C29D8-8583-4161-8DEB-C67D015B33F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PruebasWebNetCore.UIForms", "PruebasWebNetCore.UIForms\PruebasWebNetCore.UIForms\PruebasWebNetCore.UIForms.csproj", "{FF9C29D8-8583-4161-8DEB-C67D015B33F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

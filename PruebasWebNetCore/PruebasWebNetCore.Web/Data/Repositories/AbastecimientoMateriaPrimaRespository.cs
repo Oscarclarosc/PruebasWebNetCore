@@ -67,7 +67,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
 
         public IQueryable GetAbastecimientoMateriaPrimaProcesado(Empleado empleado)
         {
-            return this.context.PedidosMateriasPrimas
+            return this.context.AbastecimientosMateriasPrimas
                 .Include(e => e.MateriaPrima)
                 .Include(p => p.AlmacenMateriaPrima)
                 .Where(pe => pe.EstadoPedido == "Procesado" && pe.Empleado.Id == empleado.Id)
@@ -99,7 +99,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             if (abastecimiento.EstadoPedido == "Solicitud")
             {
                 abastecimiento.EstadoPedido = "Procesado";
-                await this.almacenMateriaPrimaRepository.ReducirStock(almacen, abastecimiento.Cantidad);
+                await this.almacenMateriaPrimaRepository.AumentarStock(almacen, abastecimiento.Cantidad);
             }
             else if (abastecimiento.EstadoPedido == "Procesado")
             {
