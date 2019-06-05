@@ -17,6 +17,7 @@ namespace PruebasWebNetCore.Web.Data.Entities
         public string EstadoPedido { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
         [Required]
@@ -24,6 +25,9 @@ namespace PruebasWebNetCore.Web.Data.Entities
 
         [Required]
         public MateriaPrima MateriaPrima { get; set; }
+
+        [Required]
+        public AlmacenMateriaPrima AlmacenMateriaPrima { get; set; }
 
     }
 }

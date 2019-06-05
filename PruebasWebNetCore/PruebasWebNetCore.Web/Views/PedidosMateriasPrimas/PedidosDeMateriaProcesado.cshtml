@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PruebasWebNetCore.Web.Data.Entities.PedidoMateriaPrima>
+
+@{
+    ViewData["Title"] = "PedidosDeMateriaProcesado";
+}
+
+<h1>Pedidos DeMateria Procesado</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoPedido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                <a asp-action="CambiarEstadoPedido" asp-route-id="@item.Id"> Confirmar Entrega</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

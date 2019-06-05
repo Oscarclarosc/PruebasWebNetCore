@@ -33,10 +33,7 @@ namespace PruebasWebNetCore.Web.Controllers
             {
                 return NotFound();
             }
-
-
             var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
-            await this.informacionFaseRepository.CambiarEstadoEnAlmacen(desecho);
 
             var model = new AlmacenDesechoViewModel
             {

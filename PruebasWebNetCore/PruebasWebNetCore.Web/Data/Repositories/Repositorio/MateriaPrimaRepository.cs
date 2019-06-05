@@ -74,7 +74,6 @@ namespace PruebasWebNetCore.Web.Data.Repositories
             {
                 Text = "(Seleccione una Materia Prima...)",
                 Value = "0"
-
             });
             return list;
         }

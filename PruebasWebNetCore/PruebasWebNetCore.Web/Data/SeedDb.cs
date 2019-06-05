@@ -64,6 +64,7 @@ namespace PruebasWebNetCore.Web.Data
                 await this.userHelper.AddUserToRoleAsync(user, "Administrador");
             }
 
+
             //Paises y Ciudades
             if (!this.context.Countries.Any())
             {

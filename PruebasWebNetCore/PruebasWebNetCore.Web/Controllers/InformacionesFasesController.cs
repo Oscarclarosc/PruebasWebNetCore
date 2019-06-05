@@ -214,6 +214,7 @@ namespace PruebasWebNetCore.Web.Controllers
         }
 
         //cambia el estado del pedido a la proxima fase y el usuario a disponible
+        //esto deberia estar en pedido controller no aqui gg
         public async Task<IActionResult> CambiarEstadoPedidoUsuario(int? id)
         {
             if (id == null)

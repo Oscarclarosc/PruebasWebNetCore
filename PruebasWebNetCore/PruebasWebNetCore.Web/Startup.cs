@@ -84,6 +84,7 @@ namespace PruebasWebNetCore.Web
             services.AddScoped<IInformacionFaseRepository, InformacionFaseRepository>();
             services.AddScoped<IAlmacenDesechoRepository, AlmacenDesechoRepository>();
             services.AddScoped<IAlmacenMateriaPrimaRepository, AlmacenMateriaPrimaRepository>();
+            services.AddScoped<IPedidoMateriaPrimaRepository, PedidoMateriaPrimaRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

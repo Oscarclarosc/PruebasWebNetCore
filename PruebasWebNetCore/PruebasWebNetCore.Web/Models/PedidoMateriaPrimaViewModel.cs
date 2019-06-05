@@ -6,24 +6,19 @@ namespace PruebasWebNetCore.Web.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Threading.Tasks;
 
-    public class AlmacenMateriaPrimaViewModel
+    public class PedidoMateriaPrimaViewModel
     {
 
-        public int AlmacenMateriaPrimaId { get; set; }
+        public int PedidoMaterialId { get; set; }
 
         public string UserId { get; set; }
+
+        public int AlmacenMateriaPrima { get; set; }
 
         [Required]
         public decimal Cantidad { get; set; }
 
-        //[Required]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Fecha { get; set; }
-
-        public string Observaciones { get; set; }
 
         [Display(Name = "Materia Prima")]
         [Range(1, int.MaxValue, ErrorMessage = "Seleccione una Materia Prima")]

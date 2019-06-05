@@ -27,22 +27,10 @@ namespace PruebasWebNetCore.Web.Controllers
 
 
         //GET
-        public async Task<IActionResult> Create(int? id)
+        public async Task<IActionResult> Create()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var materiaprima = await this.almacenMateriaPrimaRepository.GetByIdAsync(id.Value);
-            if (materiaprima == null)
-            {
-                return NotFound();
-            }
-
 
             var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
-            //await this.informacionFaseRepository.CambiarEstadoEnAlmacen(desecho);
 
             var model = new AlmacenMateriaPrimaViewModel
             {
@@ -62,12 +50,40 @@ namespace PruebasWebNetCore.Web.Controllers
                 await this.almacenMateriaPrimaRepository.AddAlmacenMateriaPrimaAsync(model);
 
                 //hacer funcion para que envie al index de desechos almacen
-                //return this.RedirectToAction("InformacionFaseActual");
+                return this.RedirectToAction("Index");
             }
 
             return this.View(model);
         }
 
+        
+         public IActionResult Index()
+         {
+            return View(this.almacenMateriaPrimaRepository.GetAlmacenMaterialPrimaAll());
+         }
+
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return new NotFoundViewResult("AlmacenMateriaPrimaNotFound");
+            }
+
+            var almacen = await this.almacenMateriaPrimaRepository.GetAlmacenMateriaPrimaAllAsync(id.Value);
+            if (almacen == null)
+            {
+                return new NotFoundViewResult("AlmacenMateriaPrimaNotFound");
+            }
+
+            return View(almacen);
+        }
+
+
+        public IActionResult AlmacenMateriaPrimaNotFound()
+        {
+            return this.View();
+        }
 
 
     }

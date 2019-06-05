@@ -40,6 +40,7 @@ namespace PruebasWebNetCore.Web.Data.Repositories
                 Observaciones = model.Observaciones,
                 Empleado = empleado
             };
+            await this.informacionFaseRepository.CambiarEstadoEnAlmacen(desecho);
             this.context.AlmacenesDesechos.Update(almacendesecho);
             await this.context.SaveChangesAsync();
         }

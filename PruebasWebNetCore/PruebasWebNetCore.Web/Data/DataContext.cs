@@ -48,6 +48,8 @@ namespace PruebasWebNetCore.Web.Data
 
         public DbSet<AlmacenMateriaPrima> AlmacenesMateriasPrimas { get; set; }
 
+        public DbSet<PedidoMateriaPrima> PedidosMateriasPrimas { get; set; }
+
 
         //constructor
         public DataContext(DbContextOptions<DataContext> options) : base(options)
@@ -68,11 +70,40 @@ namespace PruebasWebNetCore.Web.Data
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+
+            //datos unicos
             
             builder.Entity<AlmacenMateriaPrima>()
                 .HasIndex(p => p.MateriaPrimaId)
-                .IsUnique(true); 
+                .IsUnique(true);
 
+            builder.Entity<Empleado>()
+                .HasIndex(p => p.Ci)
+                .IsUnique(true);
+
+            builder.Entity<User>()
+                .HasIndex(p => p.Ci)
+                .IsUnique(true);
+
+            builder.Entity<Telefono>()
+                .HasIndex(p => p.Numero)
+                .IsUnique(true);
+
+            builder.Entity<Empresa>()
+                .HasIndex(p => p.Nombre)
+                .IsUnique(true);
+
+            builder.Entity<Producto>()
+                .HasIndex(p => p.Codigo)
+                .IsUnique(true);
+
+            builder.Entity<Color>()
+                .HasIndex(p => p.Nombre)
+                .IsUnique(true);
+
+            builder.Entity<MateriaPrima>()
+                .HasIndex(p => p.Nombre)
+                .IsUnique(true);
 
 
 

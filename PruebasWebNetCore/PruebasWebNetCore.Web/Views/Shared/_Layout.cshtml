@@ -76,8 +76,9 @@
                                     </div>
                                 </li>
 
-                            }else
-                            if (this.User.IsInRole("Extrusion") || this.User.IsInRole("Impresion")||this.User.IsInRole("Cortado") || this.User.IsInRole("Empaquetado"))
+                            }
+                            else
+                         if (this.User.IsInRole("Extrusion") || this.User.IsInRole("Impresion") || this.User.IsInRole("Cortado") || this.User.IsInRole("Empaquetado"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Pedidos" asp-action="PedidosDisponibles">Pedidos Disponibles</a>
@@ -86,8 +87,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="InformacionesFases" asp-action="InformacionFaseActual">Informacion Fase Actual</a>
                                 </li>
-                            }else
-                            if (this.User.IsInRole("EncargadoAlmacenDesechos"))
+                            }
+                            else
+                         if (this.User.IsInRole("EncargadoAlmacenDesechos"))
                             {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -99,6 +101,28 @@
                                     </div>
                                 </li>
                             }
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Almacen Materia Prima
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-controller="AlmacenesMateriasPrimas" asp-action="Index"> Inventario Materia Prima</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="PedidosDeMateriaPrimaEnSolicitud"> Solicitudes de Materia Prima</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="Index"> Historial de Pedidos</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Pedido Materia Prima
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="Create"> Solicitar Materia Prima</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="PedidosDeMateriaProcesado"> Pedidos Procesados</a>
+                                </div>
+                            </li>
+
 
                         </ul>
                     </div>
