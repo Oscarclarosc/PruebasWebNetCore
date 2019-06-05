@@ -50,6 +50,10 @@ namespace PruebasWebNetCore.Web.Data
 
         public DbSet<PedidoMateriaPrima> PedidosMateriasPrimas { get; set; }
 
+        public DbSet<Proveedor> Proveedores { get; set; }
+
+        public DbSet<AbastecimientoMateriaPrima> AbastecimientosMateriasPrimas { get; set; }
+
 
         //constructor
         public DataContext(DbContextOptions<DataContext> options) : base(options)

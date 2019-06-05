@@ -38,10 +38,11 @@
                             {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Empresas
+                                        Empresas-Proveedores
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" asp-area="" asp-controller="Empresas" asp-action="Index">Gestionar Empresas</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Proveedores" asp-action="Index">Gestionar Proveedores</a>
                                     </div>
                                 </li>
 
@@ -78,7 +79,7 @@
 
                             }
                             else
-                         if (this.User.IsInRole("Extrusion") || this.User.IsInRole("Impresion") || this.User.IsInRole("Cortado") || this.User.IsInRole("Empaquetado"))
+                        if (this.User.IsInRole("Extrusion") || this.User.IsInRole("Impresion") || this.User.IsInRole("Cortado") || this.User.IsInRole("Empaquetado"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Pedidos" asp-action="PedidosDisponibles">Pedidos Disponibles</a>
@@ -89,7 +90,7 @@
                                 </li>
                             }
                             else
-                         if (this.User.IsInRole("EncargadoAlmacenDesechos"))
+                        if (this.User.IsInRole("EncargadoAlmacenDesechos"))
                             {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,8 +109,10 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" asp-area="" asp-controller="AlmacenesMateriasPrimas" asp-action="Index"> Inventario Materia Prima</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="PedidosDeMateriaPrimaEnSolicitud"> Solicitudes de Materia Prima</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="PedidosDeMateriaPrimaEnSolicitud"> Pedidos de Materia Prima</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="Index"> Historial de Pedidos</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="PedidosDeMateriaPrimaEnSolicitud"> Abastecimiento de Materia Prima</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="Index"> Historial de Abastecimiento</a>
                                 </div>
                             </li>
 
@@ -120,6 +123,16 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="Create"> Solicitar Materia Prima</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="PedidosMateriasPrimas" asp-action="PedidosDeMateriaProcesado"> Pedidos Procesados</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Abastecimiento Materia Prima
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-controller="AbastecimientosMateriasPrimas" asp-action="Create"> Abastecer Materia Prima</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="AbastecimientosMateriasPrimas" asp-action="AbastecimientoDeMateriaProcesado"> Abastecimientos Procesados</a>
                                 </div>
                             </li>
 

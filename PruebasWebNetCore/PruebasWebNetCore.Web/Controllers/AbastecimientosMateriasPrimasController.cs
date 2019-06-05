@@ -3,7 +3,6 @@
 namespace PruebasWebNetCore.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using PruebasWebNetCore.Web.Data;
     using PruebasWebNetCore.Web.Data.Repositories;
     using PruebasWebNetCore.Web.Helpers;
     using PruebasWebNetCore.Web.Models;
@@ -12,22 +11,23 @@ namespace PruebasWebNetCore.Web.Controllers
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class PedidosMateriasPrimasController : Controller
+    public class AbastecimientosMateriasPrimasController:Controller
     {
-        private readonly IPedidoMateriaPrimaRepository pedidoMateriaPrimaRepository;
+        private readonly IAbastecimientoMateriaPrimaRepository abastecimientoMateriaPrimaRepository;
         private readonly IUserHelper userHelper;
         private readonly IMateriaPrimaRepository materiaPrimaRepository;
+        private readonly IProveedorRepository proveedorRepository;
         private readonly IAlmacenMateriaPrimaRepository almacenMateriaPrimaRepository;
+        private readonly IEmpleadoRepository empleadoRepository;
 
-        public IEmpleadoRepository EmpleadoRepository { get; }
-
-        public PedidosMateriasPrimasController(IPedidoMateriaPrimaRepository pedidoMateriaPrimaRepository, IUserHelper userHelper, IMateriaPrimaRepository materiaPrimaRepository, IAlmacenMateriaPrimaRepository almacenMateriaPrimaRepository, IEmpleadoRepository empleadoRepository)
+        public AbastecimientosMateriasPrimasController(IAbastecimientoMateriaPrimaRepository abastecimientoMateriaPrimaRepository, IUserHelper userHelper, IMateriaPrimaRepository materiaPrimaRepository, IProveedorRepository proveedorRepository, IAlmacenMateriaPrimaRepository  almacenMateriaPrimaRepository,IEmpleadoRepository empleadoRepository)
         {
-            this.pedidoMateriaPrimaRepository = pedidoMateriaPrimaRepository;
+            this.abastecimientoMateriaPrimaRepository = abastecimientoMateriaPrimaRepository;
             this.userHelper = userHelper;
             this.materiaPrimaRepository = materiaPrimaRepository;
+            this.proveedorRepository = proveedorRepository;
             this.almacenMateriaPrimaRepository = almacenMateriaPrimaRepository;
-            EmpleadoRepository = empleadoRepository;
+            this.empleadoRepository = empleadoRepository;
         }
 
         //TODO: hacer vista que muestre las solicitudes de un trabajador
@@ -36,10 +36,11 @@ namespace PruebasWebNetCore.Web.Controllers
 
             var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
 
-            var model = new PedidoMateriaPrimaViewModel
+            var model = new AbastecimientoMateriaPrimaViewModel
             {
                 UserId = user.Id,
                 MateriasPrimas = this.materiaPrimaRepository.GetComboMateriasPrimas(),
+                Proveedores = this.proveedorRepository.GetComboProveedor()
             };
 
             return View(model);
@@ -47,20 +48,14 @@ namespace PruebasWebNetCore.Web.Controllers
 
         //POST
         [HttpPost]
-        public async Task<IActionResult> Create(PedidoMateriaPrimaViewModel model)
+        public async Task<IActionResult> Create(AbastecimientoMateriaPrimaViewModel model)
         {
 
 
             if (this.ModelState.IsValid)
             {
 
-                var almacenmateriaprima = await this.almacenMateriaPrimaRepository.GetAlmacenMateriaPrimaPorMateriaPrimaAsync(model.MateriaPrimaId);
-                if(almacenmateriaprima.Cantidad < model.Cantidad)
-                {
-                    return this.RedirectToAction("InventarioInsuficiente");
-                }
-
-                await this.pedidoMateriaPrimaRepository.AddPedidoDeMateriaPrimaAsync(model);
+                await this.abastecimientoMateriaPrimaRepository.AddAbastecimientoDeMateriaPrimaAsync(model);
 
                 //hacer funcion para que envie al index de desechos almacen
                 return this.RedirectToAction("Index");
@@ -71,49 +66,49 @@ namespace PruebasWebNetCore.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(this.pedidoMateriaPrimaRepository.GetPedidoMateriaPrimaAll());
+            return View(this.abastecimientoMateriaPrimaRepository.GetAbastecimientoMateriaPrimaAll());
 
         }
 
-        public IActionResult PedidosDeMateriaPrimaEnSolicitud()
+        public IActionResult AbastecimientoDeMateriaPrimaEnSolicitud()
         {
-            return View(this.pedidoMateriaPrimaRepository.GetPedidoMateriaPrimaSolicitud());
+            return View(this.abastecimientoMateriaPrimaRepository.GetAbastecimientoMateriaPrimaSolicitud());
 
         }
 
         //para mostrar los pedidos procesados de un empleado 
-        public async Task<IActionResult> PedidosDeMateriaProcesado()
+        public async Task<IActionResult> AbastecimientoDeMateriaProcesado()
         {
             var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
-            var empleado = await this.EmpleadoRepository.GetEmpleadoPorCarnet(user.Ci);
-            if(empleado == null)
+            var empleado = await this.empleadoRepository.GetEmpleadoPorCarnet(user.Ci);
+            if (empleado == null)
             {
                 return NotFound();
 
             }
-            return View(this.pedidoMateriaPrimaRepository.GetPedidoMateriaPrimaProcesado(empleado));
+            return View(this.abastecimientoMateriaPrimaRepository.GetAbastecimientoMateriaPrimaProcesado(empleado));
         }
 
-        public async Task<IActionResult> CambiarEstadoPedido(int? id)
+        public async Task<IActionResult> CambiarEstadoAbastecimiento(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var pedido = await this.pedidoMateriaPrimaRepository.GetPedidoMateriaPrimaAllAsync(id.Value);
+            var pedido = await this.abastecimientoMateriaPrimaRepository.GetAbastecimientoMateriaPrimaAllAsync(id.Value);
             if (pedido == null)
             {
                 return NotFound();
             }
 
             var almacen = await this.almacenMateriaPrimaRepository.GetAlmacenMateriaPrimaPorMateriaPrimaAsync(pedido.MateriaPrima.Id);
-            if(almacen == null)
+            if (almacen == null)
             {
                 return NotFound();
             }
 
-            await this.pedidoMateriaPrimaRepository.CambiarEstadoAsync(pedido,almacen);
+            await this.abastecimientoMateriaPrimaRepository.CambiarEstadoAsync(pedido, almacen);
             return this.RedirectToAction("ConfirmarCambioDeEstadoPedido");
         }
 
@@ -122,10 +117,7 @@ namespace PruebasWebNetCore.Web.Controllers
             return this.View();
         }
 
-        public IActionResult InventarioInsuficiente()
-        {
-            return this.View();
-        }
+
 
 
     }
