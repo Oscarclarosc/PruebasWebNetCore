@@ -36,6 +36,7 @@ namespace PruebasWebNetCore.Web.Data
                 {
                     user = new User
                     {
+                        
                         Nombre = "Oscar",
                         ApellidoPaterno = "Claros",
                         ApellidoMaterno = "Carrillo",
